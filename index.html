@@ -63,11 +63,14 @@
             }
         };
 
-        function iniciarLogin() {
-            // Saltamos directo a la aplicación de Google
-            window.top.location.href = SCRIPT_URL + "?action=login";
-        }
-
+        function iniciarLoginGoogle() {
+    const urlLogin = `${SCRIPT_URL}?action=login`;
+    localStorage.setItem("intentando_login", "true");
+    
+    // Forzamos a romper cualquier iFrame de Google Sites o entorno cerrado
+    window.top.location.href = urlLogin; 
+}
+ 
         function cerrarSesion() {
             window.top.location.href = window.location.pathname;
         }
