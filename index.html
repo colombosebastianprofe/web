@@ -12,7 +12,7 @@
         
         <div id="pantalla-login" class="space-y-6">
             <h1 class="text-3xl font-black text-emerald-400">¡Hola Mundo! 👋</h1>
-            <p class="text-sm text-slate-400">Este es un entorno de prueba aislado corriendo 100% en GitHub Pages.</p>
+            <p class="text-sm text-slate-400">Entorno de pruebas corriendo de forma directa en tu repositorio de GitHub.</p>
             
             <button onclick="iniciarLogin()" class="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-slate-900 font-bold py-3 px-6 rounded-xl transition-all cursor-pointer shadow-lg text-base">
                 <svg class="w-5 h-5" viewBox="0 0 24 24">
@@ -28,57 +28,57 @@
         <div id="pantalla-bienvenida" class="hidden space-y-6">
             <h1 class="text-3xl font-black text-sky-400">¡Bienvenid@! 🎉</h1>
             <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-700 font-mono text-left space-y-2">
-                <p class="text-xs text-slate-500 uppercase tracking-wider font-bold">Datos devueltos por la base de datos:</p>
+                <p class="text-xs text-slate-500 uppercase tracking-wider font-bold">Datos devueltos por Google:</p>
                 <p class="text-emerald-400 font-bold" id="datos-usuario">👤 Usuario: </p>
                 <p class="text-sky-300 text-sm break-all" id="datos-email">✉️ Email: </p>
             </div>
             
             <p class="text-xs text-emerald-400/80 font-medium bg-emerald-500/10 py-2 rounded-lg border border-emerald-500/20">
-                ¡Conexión exitosa! Los datos se guardaron en tu Sheets.
+                ¡Conexión Exitosa! El usuario quedó registrado en tu Sheets.
             </p>
 
             <button onclick="cerrarSesion()" class="text-xs text-red-400 underline font-semibold cursor-pointer block mx-auto">
-                Volver a empezar (Limpiar simulación)
+                Volver a empezar
             </button>
         </div>
 
     </div>
 
     <script>
-        // ==========================================
-        //  PEGA ACÁ TU URL DE DEPLOY DE APPS SCRIPT (DE TU CUENTA PERSONAL)
-        // ==========================================
+        // ========================================================
+        //  PEGA ACÁ LA URL /exec DE TU NUEVA IMPLEMENTACIÓN
+        // ========================================================
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxo5QK3C1Zx_PLQQLwlvlhanCy6I7KqWhjOoWtcLvlW4OjnlbXootIxaV0RTNXZRlx9iA/exec";
 
         window.onload = function() {
-            // Escaneamos la URL buscando si venimos de regreso desde Google
+            // Buscamos los parámetros de éxito que inyecta Apps Script al volver
             const urlParams = new URLSearchParams(window.location.search);
             const status = urlParams.get('status');
             const email = urlParams.get('email');
             const username = urlParams.get('username');
 
             if (status === "success" && email) {
-                // Ocultamos el login y mostramos la bienvenida
+                // Intercambiamos las pantallas
                 document.getElementById('pantalla-login').classList.add('hidden');
                 document.getElementById('pantalla-bienvenida').classList.remove('hidden');
 
-                // Inyectamos los datos reales en pantalla
+                // Volcamos la información en los textos
                 document.getElementById('datos-usuario').innerText = `👤 Usuario: ${username}`;
                 document.getElementById('datos-email').innerText = `✉️ Email: ${email}`;
 
-                // Limpiamos la barra de direcciones de forma elegante
+                // Limpiamos la URL para que no queden los datos expuestos
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
         };
 
         function iniciarLogin() {
-            // Mandamos la pestaña completa hacia Google Apps Script
-            window.location.href = `${SCRIPT_URL}?action=login`;
+            // Usamos window.top para obligar a la pestaña a salir del entorno cerrado
+            window.top.location.href = `${SCRIPT_URL}?action=login`;
         }
 
         function cerrarSesion() {
-            // Recargamos la raíz limpia para probar de nuevo
-            window.location.href = window.location.pathname;
+            // Recargamos el index limpio sin parámetros
+            window.top.location.href = window.location.pathname;
         }
     </script>
 </body>
