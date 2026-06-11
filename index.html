@@ -46,40 +46,42 @@
 
     <script>
         // ========================================================
-        //  PEGA ACÁ LA URL /exec DE TU NUEVA IMPLEMENTACIÓN
-        // ========================================================
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxo5QK3C1Zx_PLQQLwlvlhanCy6I7KqWhjOoWtcLvlW4OjnlbXootIxaV0RTNXZRlx9iA/exec";
+//  PEGA ACÁ LA URL /exec DE TU NUEVA IMPLEMENTACIÓN
+// ========================================================
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxhsAXaDfz8uOn3SWcA_vwnyoOD8iU38jJ_K2klsHGermooyFX-rVVW4FfgrlEmmumXeA/exec";
 
-        window.onload = function() {
-            // Buscamos los parámetros de éxito que inyecta Apps Script al volver
-            const urlParams = new URLSearchParams(window.location.search);
-            const status = urlParams.get('status');
-            const email = urlParams.get('email');
-            const username = urlParams.get('username');
+window.onload = function() {
+    // Buscamos los parámetros de éxito que inyecta Apps Script al volver
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get('status');
+    const email = urlParams.get('email');
+    const username = urlParams.get('username');
 
-            if (status === "success" && email) {
-                // Intercambiamos las pantallas
-                document.getElementById('pantalla-login').classList.add('hidden');
-                document.getElementById('pantalla-bienvenida').classList.remove('hidden');
+    if (status === "success" && email) {
+        // Intercambiamos las pantallas
+        document.getElementById('pantalla-login').classList.add('hidden');
+        document.getElementById('pantalla-bienvenida').classList.remove('hidden');
 
-                // Volcamos la información en los textos
-                document.getElementById('datos-usuario').innerText = `👤 Usuario: ${username}`;
-                document.getElementById('datos-email').innerText = `✉️ Email: ${email}`;
+        // Volcamos la información en los textos
+        document.getElementById('datos-usuario').innerText = `👤 Usuario: ${username}`;
+        document.getElementById('datos-email').innerText = `✉️ Email: ${email}`;
 
-                // Limpiamos la URL para que no queden los datos expuestos
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }
-        };
+        // Limpiamos la URL para que no queden los datos expuestos
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+};
 
-        function iniciarLogin() {
-            // Usamos window.top para obligar a la pestaña a salir del entorno cerrado
-            window.top.location.href = `${SCRIPT_URL}?action=login`;
-        }
+function iniciarLogin() {
+    // EL TRUCO DEFINITIVO: Al agregar el parámetro '?action=login', le sumamos un
+    // enlace directo de Google para forzar el consentimiento interactivo de la cuenta.
+    // Usamos window.top.location para romper cualquier restricción de pestaña.
+    window.top.location.href = SCRIPT_URL + "?action=login";
+}
 
-        function cerrarSesion() {
-            // Recargamos el index limpio sin parámetros
-            window.top.location.href = window.location.pathname;
-        }
+function cerrarSesion() {
+    // Recargamos el index limpio sin parámetros
+    window.top.location.href = window.location.pathname;
+}
     </script>
 </body>
 </html>
