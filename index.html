@@ -1,132 +1,85 @@
 <!DOCTYPE html>
-<html lang="es"><head>
+<html lang="es">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S. Colombo | Hub de Tecnología</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&amp;family=Merriweather:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet">
-    
-    <style id="dinamic-styles">:root { --color-uno: #1e272e; --color-dos: #485460; --color-tres: #05c46b; }</style>
-
-    <style>
-        body { margin: 0; font-family: 'Inter', sans-serif; background: #f1f2f6; color: #2f3542; }
-        
-        /* HEADER PRINCIPAL */
-        header { 
-            background: linear-gradient(135deg, var(--color-uno), var(--color-dos));
-            color: white; padding: 80px 20px; text-align: center;
-        }
-        header h1 { font-size: 2.8rem; margin: 0; font-weight: 800; }
-        header p { opacity: 0.8; font-weight: 300; letter-spacing: 1px; }
-
-        .container { max-width: 900px; margin: -40px auto 50px; padding: 0 20px; display: grid; grid-template-columns: 1fr 300px; gap: 25px; }
-
-        /* SECCIÓN EDITORIAL (EL BOT + IMAGEN) */
-        .editorial-card { 
-            background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            overflow: hidden; /* Para que la imagen respete los bordes redondeados */
-        }
-        
-        .editorial-img-container {
-            width: 100%;
-            height: 250px;
-            overflow: hidden;
-            border-bottom: 5px solid var(--color-tres);
-        }
-        
-        .editorial-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Mantiene la proporción de la imagen */
-            object-position: center;
-        }
-
-        .editorial-content { padding: 40px; }
-        .editorial-label { color: var(--color-tres); font-weight: 700; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; }
-        .editorial-title { font-family: 'Merriweather', serif; font-size: 1.8rem; margin: 10px 0; color: var(--color-uno); }
-        .editorial-excerpt { font-family: 'Merriweather', serif; font-style: italic; color: #57606f; line-height: 1.8; margin-bottom: 20px;}
-
-        /* LATERAL: CLIMA Y ACCESOS */
-        .sidebar { display: flex; flex-direction: column; gap: 20px; }
-        
-        .weather-card { 
-            background: var(--color-uno); color: white; padding: 25px; border-radius: 20px; text-align: center;
-        }
-        .weather-info { font-size: 0.85rem; margin-bottom: 15px; opacity: 0.9; }
-        .btn-weather { 
-            background: var(--color-tres); color: white; border: none; padding: 10px 15px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 0.8rem;
-        }
-
-        .nav-card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .nav-card h4 { margin: 0 0 15px 0; font-size: 0.9rem; border-bottom: 2px solid #f1f2f6; padding-bottom: 5px; }
-        .nav-link { display: block; text-decoration: none; color: var(--color-uno); padding: 10px 0; font-weight: 600; font-size: 0.9rem; transition: 0.2s; border-bottom: 1px solid #f9f9f9; }
-        .nav-link:hover { color: var(--color-tres); padding-left: 5px; }
-
-        @media (max-width: 768px) { .container { grid-template-columns: 1fr; margin-top: 20px; } }
-    </style>
+    <title>Laboratorio de Autenticación</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body>
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen flex items-center justify-center p-4">
 
-<header>
-    <h1 id="edit-nombre-sitio">S. COLOMBO</h1>
-    <p id="edit-tagline">PLATAFORMA DE EDUCACIÓN TECNOLÓGICA</p>
-</header>
-
-<div class="container">
-    <main class="editorial-card">
-        <div class="editorial-img-container" id="edit-imagen-container"></div>
+    <div class="bg-slate-800 p-8 rounded-2xl shadow-xl w-full max-w-md border border-slate-700 text-center">
         
-        <div class="editorial-content">
-            <span class="editorial-label">Editorial del Día | Tendencias e Innovación</span>
-            <h2 class="editorial-title" id="edit-titulo-editorial">El Futuro es Ahora: Curva de transformación educativa</h2>
-            <div class="editorial-excerpt" id="edit-contenido-editorial">Qué depara a la educación formal la llegada de la IA? Probablemente alguien se haya formulado la pregunta y ensayado una respuesta. Esta editorial viene a ser eso mismo, contemplar la cuestión emergente e hipotetizar su posible desenlace. Parece ser la primer reacción mirar hacia atrás buscando un precedente y encontrar que es el único: el paso de la educación en casa a la escolarización en el contexto de la Primera Revolución Industrial. Si se sigue la lógica "la necesidad demanda el invento" a la vez que se intenta no escapar de lo sistémico se puede argumentar: "la necesidad de mano de obra dió como resultado la fomración de trabajadores industriales". En la actual segunda década del siglo XXI parece ser la actualización de esa premisa "Los trabajos que realizará la IA en reemplazo de lo humano creará un tiempo disponible para las personas en el que podrán dirigir su atención más allá de la mera supervivencia que nunca había sido considerado antes en la historia"</div>
-            <a href="tp-varita.html" id="edit-link-editorial" class="nav-link" style="color: var(--color-tres); border: none;">Más info sobre tecnología →</a>
+        <div id="pantalla-login" class="space-y-6">
+            <h1 class="text-3xl font-black text-emerald-400">¡Hola Mundo! 👋</h1>
+            <p class="text-sm text-slate-400">Este es un entorno de prueba aislado corriendo 100% en GitHub Pages.</p>
+            
+            <button onclick="iniciarLogin()" class="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-slate-900 font-bold py-3 px-6 rounded-xl transition-all cursor-pointer shadow-lg text-base">
+                <svg class="w-5 h-5" viewBox="0 0 24 24">
+                    <path fill="#EA4335" d="M5.266 9.765A7.077 7.077 0 0112 4.909c1.69 0 3.218.6 4.418 1.582L19.91 3A11.934 11.934 0 0012 0C7.354 0 3.307 2.482 1.09 6.182l4.176 3.583z"/>
+                    <path fill="#4285F4" d="M23.455 12.273c0-.818-.073-1.609-.209-2.373H12v4.509h6.418a5.485 5.485 0 01-2.382 3.6l4.136 3.209c2.418-2.227 3.81-5.509 3.81-9.445z"/>
+                    <path fill="#FBBC05" d="M5.266 14.235L1.09 17.818A11.934 11.934 0 0012 24c3.236 0 5.955-1.073 7.936-2.918l-4.136-3.21c-1.127.755-2.564 1.21-3.8 1.21-2.945 0-5.436-1.983-6.327-4.655z"/>
+                    <path fill="#34A853" d="M5.266 9.765c-.227.682-.355 1.409-.355 2.173 0 .764.128 1.491.355 2.173l-4.176 3.582A11.962 11.962 0 010 12c0-2.11.545-4.1 1.09-5.818l4.176 3.583z"/>
+                </svg>
+                Probar inicio con Google
+            </button>
         </div>
-    </main>
 
-    <aside class="sidebar">
-        <div class="weather-card">
-            <div id="weather-display">
-                <p class="weather-info">Para mostrarte el clima en tu zona y hablar de datos geoespaciales, necesito conocer tu ubicación.</p>
-                <button class="btn-weather" onclick="obtenerClima()">📍 ACTIVAR CLIMA</button>
+        <div id="pantalla-bienvenida" class="hidden space-y-6">
+            <h1 class="text-3xl font-black text-sky-400">¡Bienvenid@! 🎉</h1>
+            <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-700 font-mono text-left space-y-2">
+                <p class="text-xs text-slate-500 uppercase tracking-wider font-bold">Datos devueltos por la base de datos:</p>
+                <p class="text-emerald-400 font-bold" id="datos-usuario">👤 Usuario: </p>
+                <p class="text-sky-300 text-sm break-all" id="datos-email">✉️ Email: </p>
             </div>
+            
+            <p class="text-xs text-emerald-400/80 font-medium bg-emerald-500/10 py-2 rounded-lg border border-emerald-500/20">
+                ¡Conexión exitosa! Los datos se guardaron en tu Sheets.
+            </p>
+
+            <button onclick="cerrarSesion()" class="text-xs text-red-400 underline font-semibold cursor-pointer block mx-auto">
+                Volver a empezar (Limpiar simulación)
+            </button>
         </div>
 
-        <div class="nav-card">
-            <h4>ACCESOS DIRECTOS</h4>
-            <a href="tp-varita.html" id="edit-link-1" class="nav-link">📝 TP 2: Varita Mágica</a>
-            <a href="showroom.html" id="edit-link-2" class="nav-link">🏢 Showroom</a>
-            <a href="contacto.html" id="edit-link-3" class="nav-link">👤 Contacto / CV</a>
-        </div>
-    </aside>
-</div>
+    </div>
 
-<script>
-    async function obtenerClima() {
-        const display = document.getElementById('weather-display');
-        display.innerHTML = "⏳ Localizando...";
+    <script>
+        // ==========================================
+        //  PEGA ACÁ TU URL DE DEPLOY DE APPS SCRIPT (DE TU CUENTA PERSONAL)
+        // ==========================================
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxo5QK3C1Zx_PLQQLwlvlhanCy6I7KqWhjOoWtcLvlW4OjnlbXootIxaV0RTNXZRlx9iA/exec";
 
-        navigator.geolocation.getCurrentPosition(async (pos) => {
-            const lat = pos.coords.latitude;
-            const lon = pos.coords.longitude;
-            try {
-                // Usamos la API de Open-Meteo (Gratis y sin Key para pruebas)
-                const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
-                const data = await res.json();
-                const temp = data.current_weather.temperature;
-                display.innerHTML = `
-                    <div style="font-size: 2rem; font-weight: 800;">${temp}°C</div>
-                    <div style="font-size: 0.8rem; opacity: 0.8;">Temperatura en tu zona</div>
-                    <div style="margin-top:10px; font-size: 0.6rem;">Datos obtenidos vía satélite</div>
-                `;
-            } catch (e) {
-                display.innerHTML = "❌ Error al cargar clima";
+        window.onload = function() {
+            // Escaneamos la URL buscando si venimos de regreso desde Google
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get('status');
+            const email = urlParams.get('email');
+            const username = urlParams.get('username');
+
+            if (status === "success" && email) {
+                // Ocultamos el login y mostramos la bienvenida
+                document.getElementById('pantalla-login').classList.add('hidden');
+                document.getElementById('pantalla-bienvenida').classList.remove('hidden');
+
+                // Inyectamos los datos reales en pantalla
+                document.getElementById('datos-usuario').innerText = `👤 Usuario: ${username}`;
+                document.getElementById('datos-email').innerText = `✉️ Email: ${email}`;
+
+                // Limpiamos la barra de direcciones de forma elegante
+                window.history.replaceState({}, document.title, window.location.pathname);
             }
-        }, () => {
-            display.innerHTML = "⚠️ Ubicación denegada";
-        });
-    }
-</script>
+        };
 
+        function iniciarLogin() {
+            // Mandamos la pestaña completa hacia Google Apps Script
+            window.location.href = `${SCRIPT_URL}?action=login`;
+        }
 
-
-</body></html>
+        function cerrarSesion() {
+            // Recargamos la raíz limpia para probar de nuevo
+            window.location.href = window.location.pathname;
+        }
+    </script>
+</body>
+</html>
