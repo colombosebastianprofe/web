@@ -3,40 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laboratorio de Autenticación</title>
+    <title>Laboratorio de Autenticación Propia</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body class="bg-slate-900 text-slate-100 font-sans min-h-screen flex items-center justify-center p-4">
 
     <div class="bg-slate-800 p-8 rounded-2xl shadow-xl w-full max-w-md border border-slate-700 text-center">
         
-        <div id="pantalla-login" class="space-y-6">
+        <div id="pantalla-inicio" class="space-y-6">
             <h1 class="text-3xl font-black text-emerald-400">¡Hola Mundo! 👋</h1>
-            <p class="text-sm text-slate-400">Entorno de pruebas corriendo de forma directa en tu repositorio de GitHub.</p>
+            <p class="text-sm text-slate-400">Sistema de autenticación local administrado desde tu Google Sheets.</p>
             
-            <button onclick="iniciarLogin()" class="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-slate-900 font-bold py-3 px-6 rounded-xl transition-all cursor-pointer shadow-lg text-base">
-                <svg class="w-5 h-5" viewBox="0 0 24 24">
-                    <path fill="#EA4335" d="M5.266 9.765A7.077 7.077 0 0112 4.909c1.69 0 3.218.6 4.418 1.582L19.91 3A11.934 11.934 0 0012 0C7.354 0 3.307 2.482 1.09 6.182l4.176 3.583z"/>
-                    <path fill="#4285F4" d="M23.455 12.273c0-.818-.073-1.609-.209-2.373H12v4.509h6.418a5.485 5.485 0 01-2.382 3.6l4.136 3.209c2.418-2.227 3.81-5.509 3.81-9.445z"/>
-                    <path fill="#FBBC05" d="M5.266 14.235L1.09 17.818A11.934 11.934 0 0012 24c3.236 0 5.955-1.073 7.936-2.918l-4.136-3.21c-1.127.755-2.564 1.21-3.8 1.21-2.945 0-5.436-1.983-6.327-4.655z"/>
-                    <path fill="#34A853" d="M5.266 9.765c-.227.682-.355 1.409-.355 2.173 0 .764.128 1.491.355 2.173l-4.176 3.582A11.962 11.962 0 010 12c0-2.11.545-4.1 1.09-5.818l4.176 3.583z"/>
-                </svg>
-                Probar inicio con Google
-            </button>
+            <div class="grid grid-cols-2 gap-4 pt-2">
+                <button onclick="cambiarSeccion('seccion-login')" class="bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-bold py-3 px-4 rounded-xl transition-all cursor-pointer shadow-lg">
+                    Iniciar Sesión
+                </button>
+                <button onclick="cambiarSeccion('seccion-registro')" class="bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold py-3 px-4 rounded-xl transition-all cursor-pointer shadow-lg border border-slate-600">
+                    Crear Usuario
+                </button>
+            </div>
+        </div>
+
+        <div id="seccion-login" class="hidden space-y-4">
+            <h2 class="text-2xl font-bold text-emerald-400">Iniciar Sesión</h2>
+            <div class="text-left space-y-1">
+                <label class="text-xs text-slate-400 font-bold uppercase">Identificador (Email o DNI)</label>
+                <input type="text" id="login-email" placeholder="Ej: sebastian1978" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-slate-100 focus:outline-none focus:border-emerald-500">
+            </div>
+            <button onclick="ejecutarLogin()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-bold py-3 rounded-xl transition-all cursor-pointer">Ingresar 🚀</button>
+            <button onclick="cambiarSeccion('pantalla-inicio')" class="text-xs text-slate-500 underline block mx-auto pt-2">Volver al inicio</button>
+        </div>
+
+        <div id="seccion-registro" class="hidden space-y-4">
+            <h2 class="text-2xl font-bold text-sky-400">Crear Usuario</h2>
+            <div class="text-left space-y-3">
+                <div>
+                    <label class="text-xs text-slate-400 font-bold uppercase">Identificador (Email o DNI)</label>
+                    <input type="text" id="reg-email" placeholder="Ej: alumno123" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-slate-100 focus:outline-none focus:border-sky-500">
+                </div>
+                <div>
+                    <label class="text-xs text-slate-400 font-bold uppercase">Nombre de Pantalla</label>
+                    <input type="text" id="reg-username" placeholder="Ej: Gonza_S" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-slate-100 focus:outline-none focus:border-sky-500">
+                </div>
+            </div>
+            <button onclick="ejecutarRegistro()" class="w-full bg-sky-500 hover:bg-sky-600 text-slate-900 font-bold py-3 rounded-xl transition-all cursor-pointer">Registrar y Guardar 💾</button>
+            <button onclick="cambiarSeccion('pantalla-inicio')" class="text-xs text-slate-500 underline block mx-auto pt-2">Volver al inicio</button>
         </div>
 
         <div id="pantalla-bienvenida" class="hidden space-y-6">
-            <h1 class="text-3xl font-black text-sky-400">¡Bienvenid@! 🎉</h1>
+            <h1 class="text-3xl font-black text-emerald-400">¡Bienvenid@! 🎉</h1>
             <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-700 font-mono text-left space-y-2">
-                <p class="text-xs text-slate-500 uppercase tracking-wider font-bold">Datos devueltos por Google:</p>
+                <p class="text-xs text-slate-500 uppercase tracking-wider font-bold">Datos recuperados de tu Sheets:</p>
                 <p class="text-emerald-400 font-bold" id="datos-usuario">👤 Usuario: </p>
-                <p class="text-sky-300 text-sm break-all" id="datos-email">✉️ Email: </p>
+                <p class="text-sky-300 text-sm break-all" id="datos-email">✉️ ID: </p>
+                <p class="text-yellow-400 font-bold" id="datos-patrimonio">💰 Patrimonio: </p>
             </div>
-            <p class="text-xs text-emerald-400/80 font-medium bg-emerald-500/10 py-2 rounded-lg border border-emerald-500/20">
-                ¡Conexión Exitosa! El usuario quedó registrado en tu Sheets.
-            </p>
             <button onclick="cerrarSesion()" class="text-xs text-red-400 underline font-semibold cursor-pointer block mx-auto">
-                Volver a empezar
+                Cerrar Sesión (Volver al Hola Mundo)
             </button>
         </div>
 
@@ -44,35 +67,69 @@
 
     <script>
         // ========================================================
-        //  PEGA ACÁ LA URL /exec DE TU NUEVA IMPLEMENTACIÓN
+        //  PEGA ACÁ LA URL /exec DE TU NUEVO APPS SCRIPT
         // ========================================================
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxhsAXaDfz8uOn3SWcA_vwnyoOD8iU38jJ_K2klsHGermooyFX-rVVW4FfgrlEmmumXeA/exec";
 
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const status = urlParams.get('status');
-            const email = urlParams.get('email');
-            const username = urlParams.get('username');
+        function cambiarSeccion(idSeccion) {
+            // Ocultamos todas las vistas del contenedor
+            document.getElementById('pantalla-inicio').classList.add('hidden');
+            document.getElementById('seccion-login').classList.add('hidden');
+            document.getElementById('seccion-registro').classList.add('hidden');
+            document.getElementById('pantalla-bienvenida').classList.add('hidden');
+            
+            // Mostramos la elegida
+            document.getElementById(idSeccion).classList.remove('hidden');
+        }
 
-            if (status === "success" && email) {
-                document.getElementById('pantalla-login').classList.add('hidden');
-                document.getElementById('pantalla-bienvenida').classList.remove('hidden');
-                document.getElementById('datos-usuario').innerText = `👤 Usuario: ${username}`;
-                document.getElementById('datos-email').innerText = `✉️ Email: ${email}`;
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }
-        };
+        function ejecutarLogin() {
+            const emailValue = document.getElementById('login-email').value.trim();
+            if(!emailValue) return alert("Por favor, ingresá tu identificador");
 
-        function iniciarLoginGoogle() {
-    const urlLogin = `${SCRIPT_URL}?action=login`;
-    localStorage.setItem("intentando_login", "true");
-    
-    // Forzamos la redirección en la pestaña principal, rompiendo iFrames
-    window.top.location.href = urlLogin; 
-}
- 
+            // Hacemos la consulta directa al Sheets sin recargar la página entera
+            fetch(`${SCRIPT_URL}?action=login&email=${encodeURIComponent(emailValue)}`)
+                .then(res => res.json())
+                .then(data => {
+                    if(data.status === "success") {
+                        cargarPanelBienvenida(data);
+                    } else {
+                        alert("Error: " + data.message);
+                    }
+                })
+                .catch(err => alert("Error al conectar con la base de datos"));
+        }
+
+        function ejecutarRegistro() {
+            const emailValue = document.getElementById('reg-email').value.trim();
+            const userValue = document.getElementById('reg-username').value.trim();
+
+            if(!emailValue || !userValue) return alert("Completá ambos campos");
+
+            fetch(`${SCRIPT_URL}?action=register&email=${encodeURIComponent(emailValue)}&username=${encodeURIComponent(userValue)}`)
+                .then(res => res.json())
+                .then(data => {
+                    if(data.status === "success") {
+                        alert("¡Usuario creado con éxito en Sheets!");
+                        cargarPanelBienvenida(data);
+                    } else {
+                        alert("Error: " + data.message);
+                    }
+                })
+                .catch(err => alert("Error al registrar el usuario"));
+        }
+
+        function cargarPanelBienvenida(datos) {
+            document.getElementById('datos-usuario').innerText = `👤 Usuario: ${datos.username}`;
+            document.getElementById('datos-email').innerText = `✉️ ID: ${datos.email}`;
+            document.getElementById('datos-patrimonio').innerText = `💰 Patrimonio: ${datos.patrimonio} EC`;
+            cambiarSeccion('pantalla-bienvenida');
+        }
+
         function cerrarSesion() {
-            window.top.location.href = window.location.pathname;
+            document.getElementById('login-email').value = "";
+            document.getElementById('reg-email').value = "";
+            document.getElementById('reg-username').value = "";
+            cambiarSeccion('pantalla-inicio');
         }
     </script>
 </body>
