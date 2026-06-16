@@ -207,13 +207,28 @@
                 </div>
             </div>
 
-            <div class="space-y-2 border-t border-slate-700 pt-4">
-                <h3 class="text-xs font-bold uppercase text-slate-500 tracking-wider">Actividades Adicionales</h3>
-                <div class="flex gap-2">
-                    <button onclick="operarMesaDirecta(1500, '💡 Contestaste correctamente la trivia sobre tasa de interés nominal.')" class="flex-1 bg-slate-700/40 hover:bg-slate-700 text-slate-300 text-[11px] p-2 rounded-lg cursor-pointer transition-all border border-slate-600 font-mono text-center">📝 Trivia Ganada (+1.500 EC)</button>
-                    <button onclick="operarMesaDirecta(-2000, '💥 Se te rompió la pantalla del celu. Tuviste que liquidar efectivo para el arreglo.')" class="flex-1 bg-slate-700/40 hover:bg-slate-700 text-slate-300 text-[11px] p-2 rounded-lg cursor-pointer transition-all border border-slate-600 font-mono text-center">⚠️ Emergencia Celular (-2.000 EC)</button>
-                </div>
+            <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-3">
+    <h3 class="text-xs font-bold uppercase tracking-wider text-amber-400 font-mono">⚡ Changarros Disponibles (Liquidez Rápida)</h3>
+    <p class="text-[11px] text-slate-400">Si te quedaste sin saldo, podés operar estos módulos para ganar capital básico. ¡Las recompensas son moderadas!</p>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <button onclick="abrirMinijuego('trivia')" class="bg-slate-950 hover:bg-slate-900 border border-slate-700 hover:border-sky-500/50 p-3 rounded-lg text-left transition-all cursor-pointer group">
+            <div class="flex justify-between items-center">
+                <span class="text-xs font-bold text-sky-400 font-mono">🧮 Trivia Matemática</span>
+                <span class="text-[10px] text-emerald-400 font-mono bg-emerald-950 px-1.5 py-0.5 rounded border border-emerald-800/30">+50 EC c/u</span>
             </div>
+            <p class="text-[10px] text-slate-500 mt-1 group-hover:text-slate-400">Desafíos rápidos de cálculo y lógica financiera.</p>
+        </button>
+
+        <button onclick="abrirMinijuego('conceptos')" class="bg-slate-950 hover:bg-slate-900 border border-slate-700 hover:border-purple-500/50 p-3 rounded-lg text-left transition-all cursor-pointer group">
+            <div class="flex justify-between items-center">
+                <span class="text-xs font-bold text-purple-400 font-mono">🧠 Auditoría de Conceptos</span>
+                <span class="text-[10px] text-emerald-400 font-mono bg-emerald-950 px-1.5 py-0.5 rounded border border-emerald-800/30">+50 EC c/u</span>
+            </div>
+            <p class="text-[10px] text-slate-500 mt-1 group-hover:text-slate-400">Repaso interactivo de las definiciones del taller.</p>
+        </button>
+    </div>
+</div>
 
             <div class="grid grid-cols-5 gap-1 text-[9px] font-mono text-center pt-2">
                 <div id="r-ponzi" class="bg-slate-900 border border-slate-800 p-1 rounded text-slate-600">📉 Ponzi</div>
@@ -227,7 +242,17 @@
         </div>
 
     </div>
-
+    <div id="modal-minijuego" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-xl p-5 space-y-4 shadow-2xl relative">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+            <h3 id="minijuego-titulo" class="text-sm font-mono font-black text-slate-200">🎮 CONFIGURANDO CHANGARRO...</h3>
+            <button onclick="cerrarMinijuego()" class="text-slate-500 hover:text-slate-300 font-bold text-sm cursor-pointer">✕</button>
+        </div>
+        
+        <div id="minijuego-pantalla" class="space-y-4">
+            </div>
+    </div>
+</div>
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwZCcZ50NtDLhSptIUp4rD3Ol6lPMmm0FWHobi2Ry4OzRBxC8T2Je5LHhM7Ddch_8Ub6Q/exec";
 
@@ -255,6 +280,116 @@
             document.getElementById(idContenedor).classList.remove('hidden');
         }
 
+        // ========================================================
+//  MOTOR INTERACTIVO DE CHANGARROS ACADÉMICOS (MINIJUEGOS)
+// ========================================================
+let juegoActual = "";
+let preguntaActualIndice = 0;
+let preguntasFiltradas = [];
+let gananciasRonda = 0;
+
+const BANCO_TRIVIA = [
+    { q: "Si ponés 1.000 EC en Plazo Fijo al 10% de interés simple, ¿cuánta plata tenés en total al vencer?", a: ["1.100 EC", "1.010 EC", "1.000 EC", "2.000 EC"], c: 0 },
+    { q: "La inflación del mercado provoca que tu dinero en mano...", a: ["Gane poder de compra", "Pierda poder de compra", "Se duplique", "Mantenga su valor intacto"], c: 1 },
+    { q: "Si una notebook cuesta 5.000 EC y la inflación proyectada es del 20%, ¿cuál será su precio estimado?", a: ["5.200 EC", "5.500 EC", "6.000 EC", "4.000 EC"], c: 2 },
+    { q: "Si disponés de 3.000 EC en efectivo y activos por 7.000 EC, ¿cuál es tu Patrimonio Neto?", a: ["4.000 EC", "3.000 EC", "7.000 EC", "10.000 EC"], c: 3 }
+];
+
+const BANCO_CONCEPTOS = [
+    { q: "¿Qué define exactamente a la 'Liquidez Disponible'?", a: ["La plata invertida atrapada en plazos fijos", "El dinero en efectivo listo para gastar u operar ya mismo", "El valor total de tus propiedades y computadoras", "Las deudas acumuladas"], c: 1 },
+    { q: "¿Qué es el Patrimonio Neto dentro de tu simulación?", a: ["La liquidez total sumada al valor de tus inversiones físicas", "Únicamente las monedas que tenés en la billetera", "La cantidad de ítems comprados en la tienda", "El interés que te paga el banco por esperar"], c: 0 },
+    { q: "¿Qué significa que una inversión esté bajo un 'Plazo Fijo' de tiempo?", a: ["Que podés retirar el capital en cualquier segundo del día", "Que el dinero queda bloqueado generando intereses hasta su vencimiento", "Que es una inversión de alto riesgo donde podés perder todo", "Que sirve para comprar comida"], c: 1 },
+    { q: "Si comprás una Bicicleta en la tienda, ¿qué impacto tiene en tus variables?", a: ["Baja tu Liquidez pero tu Patrimonio Neto se mantiene estable", "Sube tu Liquidez y baja tu Patrimonio Neto", "Perdés dinero de forma definitiva sin contraprestación", "Te da intereses diarios automáticamente"], c: 0 }
+];
+
+function abrirMinijuego(tipo) {
+    juegoActual = tipo;
+    preguntaActualIndice = 0;
+    gananciasRonda = 0;
+    
+    // Mezclamos y seleccionamos 3 preguntas al azar para que no sea monótono
+    const banco = tipo === 'trivia' ? BANCO_TRIVIA : BANCO_CONCEPTOS;
+    preguntasFiltradas = [...banco].sort(() => 0.5 - Math.random()).slice(0, 3);
+    
+    document.getElementById('minijuego-titulo').innerText = tipo === 'trivia' ? "🧮 CHANGARRO: TRIVIA MATEMÁTICA" : "🧠 CHANGARRO: AUDITORÍA DE CONCEPTOS";
+    document.getElementById('modal-minijuego').classList.remove('hidden');
+    
+    presentarPregunta();
+}
+
+function presentarPregunta() {
+    const pantalla = document.getElementById('minijuego-pantalla');
+    if (preguntaActualIndice >= preguntasFiltradas.length) {
+        // Fin de la ronda: Procesamos el bonus final
+        let bonus = 0;
+        if (gananciasRonda === preguntasFiltradas.length * 50) {
+            bonus = 150; // Bonus por ronda perfecta
+        }
+        const totalGanado = gananciasRonda + bonus;
+        
+        // Impacto directo en variables locales del alumno
+        usuarioActual.liquidez += totalGanado;
+        usuarioActual.patrimonio += totalGanado;
+        
+        // Actualizamos los contadores visuales del HUD
+        document.getElementById('hud-liquidez').innerText = `${usuarioActual.liquidez.toLocaleString()} EC`;
+        document.getElementById('hud-patrimonio').innerText = `${usuarioActual.patrimonio.toLocaleString()} EC`;
+        
+        // Sincronizamos en vivo con el Google Sheets de fondo
+        guardarDatosEnNube();
+
+        pantalla.innerHTML = `
+            <div class="text-center space-y-3 py-2">
+                <p class="text-xs text-slate-400">¡Ronda de trabajo finalizada con éxito!</p>
+                <p class="text-2xl font-black text-emerald-400 font-mono">+${totalGanado} EC</p>
+                ${bonus > 0 ? '<p class="text-[10px] text-amber-400 font-mono font-bold">⭐ ¡BONUS DE RANGO PERFECTO INCLUIDO (+150 EC)!</p>' : ''}
+                <p class="text-[11px] text-slate-500 font-mono">Las variables fueron impactadas y sincronizadas en la base central.</p>
+                <button onclick="cerrarMinijuego()" class="w-full bg-slate-800 hover:bg-slate-700 font-bold text-xs py-2.5 rounded-lg cursor-pointer mt-2">Volver al Mercado de Inversión</button>
+            </div>
+        `;
+        return;
+    }
+
+    const p = preguntasFiltradas[preguntaActualIndice];
+    let opcionesHTML = "";
+    p.a.forEach((opt, idx) => {
+        opcionesHTML += `
+            <button onclick="evaluarRespuesta(${idx})" class="w-full text-left bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 rounded-lg p-2.5 text-xs font-mono cursor-pointer transition-all">
+                ${idx + 1}. ${opt}
+            </button>
+        `;
+    });
+
+    pantalla.innerHTML = `
+        <div class="space-y-3">
+            <div class="flex justify-between items-center text-[10px] font-mono text-slate-500">
+                <span>PREGUNTA: ${preguntaActualIndice + 1}/${preguntasFiltradas.length}</span>
+                <span class="text-emerald-500">ACUMULADO: ${gananciasRonda} EC</span>
+            </div>
+            <p class="text-xs font-bold text-slate-300 font-sans leading-relaxed">${p.q}</p>
+            <div class="space-y-2 pt-1">
+                ${opcionesHTML}
+            </div>
+        </div>
+    `;
+}
+
+function evaluarRespuesta(indiceSeleccionado) {
+    const p = preguntasFiltradas[preguntaActualIndice];
+    if (indiceSeleccionado === p.c) {
+        gananciasRonda += 50;
+        alert("¡Correcto! +50 EC acumulados.");
+    } else {
+        alert(`Incorrecto. La respuesta correcta era: ${p.a[p.c]}`);
+    }
+    preguntaActualIndice++;
+    presentarPregunta();
+}
+
+function cerrarMinijuego() {
+    document.getElementById('modal-minijuego').classList.add('hidden');
+}
+        
         function moverSlide(direccion) {
             document.getElementById(`slide-${currentSlide}`).classList.add('hidden');
             currentSlide += direccion;
