@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal del Profesor - Control Central</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen p-6 flex flex-col items-center">
+
+    <div class="w-full max-w-4xl space-y-6">
+        <div class="flex justify-between items-center bg-slate-800 p-4 rounded-xl border border-slate-700">
+            <div>
+                <h1 class="text-xl font-black text-amber-400 font-mono">🎛️ TERMINAL MÁSTER - CONTROL PEDAGÓGICO</h1>
+                <p class="text-xs text-slate-400">Auditoría de simulación y sincronización horaria del Universo de 500 Horas.</p>
+            </div>
+            <button onclick="location.reload()" class="bg-slate-700 hover:bg-slate-600 text-xs font-bold px-3 py-1.5 rounded-lg cursor-pointer transition-all">🔄 Recargar Monitor</button>
+        </div>
+
+        <!-- ACCESO DE SEGURIDAD (SOLO INICIO) -->
+        <div id="admin-auth" class="bg-slate-800/60 p-6 rounded-xl border border-slate-700 text-center space-y-4 max-w-md mx-auto">
+            <h2 class="text-base font-bold text-slate-200">Autenticación de Cátedra</h2>
+            <div class="space-y-3 text-left">
+                <input type="text" id="admin-user" placeholder="Usuario Máster (s_colombo)" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs font-mono">
+                <input type="password" id="admin-pass" placeholder="Tu Contraseña Secreta" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs font-mono">
+            </div>
+            <button onclick="conectarPanel()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-black py-2.5 rounded-lg cursor-pointer">Enlazar Servidor Seguro 🔐</button>
+        </div>
+
+        <!-- PANEL EN JUEGO (OCULTO HASTA COMPROBACIÓN) -->
+        <div id="admin-dashboard" class="hidden space-y-6">
+            
+            <!-- CONTROLES HORARIOS DEL "BIG BANG" -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-3">
+                    <h2 class="text-xs font-bold uppercase font-mono text-red-400">⏱️ Sincronizar Reloj del Servidor</h2>
+                    <p class="text-xs text-slate-400">Elegí la fecha y hora real del mundo físico donde querés que empiece la cuenta regresiva oficial para el alumnado.</p>
+                    <div class="flex gap-2">
+                        <input type="datetime-local" id="input-datetime" class="flex-1 bg-slate-950 border border-slate-700 rounded-lg p-2 text-xs font-mono text-slate-100">
+                        <button onclick="actualizarBigBang()" class="bg-red-500 hover:bg-red-600 text-slate-950 font-bold text-xs px-4 rounded-lg cursor-pointer transition-all">Disparar Reloj General 🚀</button>
+                    </div>
+                </div>
+
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col justify-center items-center">
+                    <span class="text-[10px] text-slate-500 font-mono tracking-widest">HITO FINAL DE CLAUSURA (500H):</span>
+                    <p id="txt-fin-calculado" class="text-sm font-mono font-black text-slate-300 mt-1">Esperando disparo...</p>
+                </div>
+            </div>
+
+            <!-- TABLA DE CONTROL DE VARIABLES EN CALIENTE -->
+            <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden shadow-xl">
+                <div class="bg-slate-750 p-3 border-b border-slate-700 px-4">
+                    <h3 class="text-xs font-bold uppercase text-sky-400 tracking-wider">📊 Monitor de Inversores Activos (Estatus Alumnos)</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-slate-900/60 font-mono text-slate-400 border-b border-slate-700">
+                                <th class="p-3 pl-4">Estudiante / Legajo</th>
+                                <th class="p-3">Alias Login</th>
+                                <th class="p-3 text-emerald-400">💧 Liquidez</th>
+                                <th class="p-3 text-sky-400">⚖️ Pat. Neto</th>
+                                <th class="p-3 text-amber-400">🏦 Plazo Fijo</th>
+                                <th class="p-3">🛍️ Vitrina</th>
+                                <th class="p-3 pr-4">🛡️ Rango Escolar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-alumnos-body" class="divide-y divide-slate-700/50">
+                            <tr><td colspan="7" class="p-4 text-center text-slate-500 italic font-mono">Esperando autenticación de cátedra...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyJiI70mxWFkpKFVhtglODYi6rF-ueQ8U5QAUrnhWR0lc4AUJ20_WLKG1tRA2b_CJlqzg/exec";
+        let credencialesAdmin = { user: "", pass: "" };
+
+        function conectarPanel() {
+            const u = document.getElementById('admin-user').value.trim();
+            const p = document.getElementById('admin-pass').value.trim();
+            if(!u || !p) return alert("Completá los campos máster.");
+
+            fetch(`${SCRIPT_URL}?action=admin_get_data&username=${encodeURIComponent(u)}&password=${encodeURIComponent(p)}`)
+                .then(res => res.json())
+                .then(data => {
+                    if(data.status === "success") {
+                        credencialesAdmin.user = u;
+                        credencialesAdmin.pass = p;
+                        document.getElementById('admin-auth').classList.add('hidden');
+                        document.getElementById('admin-dashboard').classList.remove('hidden');
+                        
+                        renderizarTabla(data.alumnos);
+                        cargarHoraServidor();
+                    } else {
+                        alert(data.message);
+                    }
+                }).catch(e => alert("Falla crítica en enlace seguro."));
+        }
+
+        function renderizarTabla(alumnos) {
+            const body = document.getElementById('tabla-alumnos-body');
+            body.innerHTML = "";
+
+            alumnos.forEach(al => {
+                const fila = document.createElement('tr');
+                fila.className = "hover:bg-slate-750/30 font-mono transition-colors";
+                fila.innerHTML = `
+                    <td class="p-3 pl-4 font-sans font-bold text-slate-200">${al.nombre}</td>
+                    <td class="p-3 text-slate-400">${al.user}</td>
+                    <td class="p-3 text-emerald-400 font-bold">${Number(al.liquidez).toLocaleString()} EC</td>
+                    <td class="p-3 text-sky-400 font-bold">${Number(al.patrimonio).toLocaleString()} EC</td>
+                    <td class="p-3 text-amber-400 font-bold">${Number(al.pfMonto) > 0 ? Number(al.pfMonto).toLocaleString() + ' EC 🔒' : '0 EC'}</td>
+                    <td class="p-3 text-purple-300 max-w-xs truncate" title="${al.inventario}">${al.inventario}</td>
+                    <td class="p-3 pr-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-900 border border-slate-700 text-slate-300">${al.rango}</span></td>
+                `;
+                body.appendChild(fila);
+            });
+        }
+
+        function cargarHoraServidor() {
+            fetch(`${SCRIPT_URL}?action=get_time`)
+                .then(res => res.json())
+                .then(data => {
+                    if(data.status === "success" && data.fechaInicio) {
+                        document.getElementById('input-datetime').value = data.fechaInicio.substring(0,16);
+                        calcularMetaFinal(data.fechaInicio);
+                    }
+                });
+        }
+
+        function calcularMetaFinal(fechaISO) {
+            const inicioMs = new Date(fechaISO).getTime();
+            const finMs = inicioMs + (500 * 60 * 60 * 1000);
+            const fechaFin = new Date(finMs);
+            document.getElementById('txt-fin-calculado').innerText = fechaFin.toLocaleString('es-AR');
+        }
+
+        function actualizarBigBang() {
+            const nuevaFecha = document.getElementById('input-datetime').value;
+            if(!nuevaFecha) return alert("Elegí una fecha y hora válidas.");
+
+            if(!confirm("⚠️ ¿Confirmás el disparo del reloj general? Esto alterará el tiempo de juego de todas las terminales conectadas en vivo.")) return;
+
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: "update_game_time",
+                    nuevaFecha: nuevaFecha
+                })
+            }).then(() => {
+                alert("¡Comando enviado! Hora sincronizada en la nube.");
+                calcularMetaFinal(nuevaFecha);
+            }).catch(e => alert("Error al inyectar comando de tiempo."));
+        }
+    </script>
+</body>
+</html>
