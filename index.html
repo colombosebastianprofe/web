@@ -118,20 +118,29 @@
 
         <div id="contenedor-juego" class="hidden bg-slate-800 p-6 rounded-2xl shadow-2xl border border-slate-700 space-y-6">
             
-            <div class="grid grid-cols-2 gap-4 border-b border-slate-700 pb-4">
-                <div class="text-left">
-                    <h2 class="text-[10px] text-slate-400 uppercase tracking-widest font-mono">Inversor Operando:</h2>
-                    <p class="text-lg font-black text-sky-400 leading-tight" id="hud-nombre">👤 Cargando...</p>
-                    <span class="text-[10px] text-slate-500 font-mono block" id="hud-alias">USER: -</span>
+           <!-- MARCADORES SUPERIORES CON RELOJ GLOBAL PERSISTENTE -->
+            <div class="border-b border-slate-700 pb-4 space-y-3">
+                <!-- Reloj Global de 500 Horas -->
+                <div class="bg-slate-950/80 border border-red-500/30 rounded-xl p-2.5 text-center flex justify-between items-center px-4 shadow-inner">
+                    <span class="text-[10px] font-bold font-mono tracking-widest text-red-400 flex items-center gap-1.5 animate-pulse">⏳ TIEMPO RESTANTE DE JUEGO:</span>
+                    <span id="reloj-global-500h" class="text-base font-mono font-black text-slate-100 tracking-wider">500h 00m 00s</span>
                 </div>
-                <div class="text-right space-y-1">
-                    <div>
-                        <span class="text-[10px] text-emerald-400 uppercase tracking-wider font-mono font-bold">💧 Liquidez Disponible:</span>
-                        <p class="text-xl font-mono font-black text-emerald-400 leading-none" id="hud-liquidez">0 EC</p>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="text-left">
+                        <h2 class="text-[10px] text-slate-400 uppercase tracking-widest font-mono">Inversor Operando:</h2>
+                        <p class="text-lg font-black text-sky-400 leading-tight" id="hud-nombre">👤 Cargando...</p>
+                        <span class="text-[10px] text-slate-500 font-mono block" id="hud-alias">USER: -</span>
                     </div>
-                    <div>
-                        <span class="text-[9px] text-slate-400 uppercase tracking-wider font-mono">⚖️ Patrimonio Neto:</span>
-                        <p class="text-xs font-mono font-bold text-slate-300 leading-none" id="hud-patrimonio">0 EC</p>
+                    <div class="text-right space-y-1">
+                        <div>
+                            <span class="text-[10px] text-emerald-400 uppercase tracking-wider font-mono font-bold">💧 Liquidez Disponible:</span>
+                            <p class="text-xl font-mono font-black text-emerald-400 leading-none" id="hud-liquidez">0 EC</p>
+                        </div>
+                        <div>
+                            <span class="text-[9px] text-slate-400 uppercase tracking-wider font-mono">⚖️ Patrimonio Neto:</span>
+                            <p class="text-xs font-mono font-bold text-slate-300 leading-none" id="hud-patrimonio">0 EC</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -500,6 +509,7 @@
             mostrarSubSeccion('auth-inicio');
             cambiarFaseGlobal('contenedor-autenticacion');
         }
+     
     </script>
 </body>
 </html>
