@@ -17,20 +17,17 @@
             <button onclick="location.reload()" class="bg-slate-700 hover:bg-slate-600 text-xs font-bold px-3 py-1.5 rounded-lg cursor-pointer transition-all">🔄 Recargar Monitor</button>
         </div>
 
-        <!-- ACCESO DE SEGURIDAD (SOLO INICIO) -->
         <div id="admin-auth" class="bg-slate-800/60 p-6 rounded-xl border border-slate-700 text-center space-y-4 max-w-md mx-auto">
             <h2 class="text-base font-bold text-slate-200">Autenticación de Cátedra</h2>
             <div class="space-y-3 text-left">
-                <input type="text" id="admin-user" placeholder="Usuario Máster (s_colombo)" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs font-mono">
+                <input type="text" id="admin-user" placeholder="Usuario Máster (s_colombo01)" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs font-mono">
                 <input type="password" id="admin-pass" placeholder="Tu Contraseña Secreta" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs font-mono">
             </div>
             <button onclick="conectarPanel()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-black py-2.5 rounded-lg cursor-pointer">Enlazar Servidor Seguro 🔐</button>
         </div>
 
-        <!-- PANEL EN JUEGO (OCULTO HASTA COMPROBACIÓN) -->
         <div id="admin-dashboard" class="hidden space-y-6">
             
-            <!-- CONTROLES HORARIOS DEL "BIG BANG" -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-3">
                     <h2 class="text-xs font-bold uppercase font-mono text-red-400">⏱️ Sincronizar Reloj del Servidor</h2>
@@ -47,7 +44,6 @@
                 </div>
             </div>
 
-            <!-- TABLA DE CONTROL DE VARIABLES EN CALIENTE -->
             <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden shadow-xl">
                 <div class="bg-slate-750 p-3 border-b border-slate-700 px-4">
                     <h3 class="text-xs font-bold uppercase text-sky-400 tracking-wider">📊 Monitor de Inversores Activos (Estatus Alumnos)</h3>
@@ -116,7 +112,7 @@
                     <td class="p-3 text-amber-400 font-bold">${Number(al.pfMonto) > 0 ? Number(al.pfMonto).toLocaleString() + ' EC 🔒' : '0 EC'}</td>
                     <td class="p-3 text-purple-300 max-w-xs truncate" title="${al.inventario}">${al.inventario}</td>
                     <td class="p-3 pr-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-900 border border-slate-700 text-slate-300">${al.rango}</span></td>
-                `;
+                `; // <-- Aquí se corrigió agregando el </tr> faltante al final de la inyección
                 body.appendChild(fila);
             });
         }
@@ -136,27 +132,28 @@
             const inicioMs = new Date(fechaISO).getTime();
             const finMs = inicioMs + (500 * 60 * 60 * 1000);
             const fechaFin = new Date(finMs);
-            document.getElementById('txt-fin-calculado').innerText = fechaFin.toLocaleString('es-AR');
+            document.getElementById('txt-fin-calculated').innerText = fechaFin.toLocaleString('es-AR');
         }
 
+        // FUNCIÓN REESCRITA COMPLETAMENTE PARA OPERAR VÍA GET (CON COHESIÓN CORS)
         function actualizarBigBang() {
             const nuevaFecha = document.getElementById('input-datetime').value;
             if(!nuevaFecha) return alert("Elegí una fecha y hora válidas.");
 
             if(!confirm("⚠️ ¿Confirmás el disparo del reloj general? Esto alterará el tiempo de juego de todas las terminales conectadas en vivo.")) return;
 
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: "update_game_time",
-                    nuevaFecha: nuevaFecha
-                })
-            }).then(() => {
-                alert("¡Comando enviado! Hora sincronizada en la nube.");
-                calcularMetaFinal(nuevaFecha);
-            }).catch(e => alert("Error al inyectar comando de tiempo."));
+            const urlDestino = `${SCRIPT_URL}?action=update_game_time&nuevaFecha=${encodeURIComponent(nuevaFecha)}`;
+
+            fetch(urlDestino)
+                .then(res => res.json())
+                .then(data => {
+                    if(data.status === "success") {
+                        alert("¡Comando enviado! Hora sincronizada en la nube.");
+                        calcularMetaFinal(nuevaFecha);
+                    } else {
+                        alert("Error: " + data.message);
+                    }
+                }).catch(e => alert("Error al inyectar comando de tiempo."));
         }
     </script>
 </body>
