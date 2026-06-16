@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador Financiero Escolar - Control de Liquidez</title>
+    <title>Simulador Financiero - Universo Persistente</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
         .btn-accion { transition: all 0.2s ease; }
@@ -14,31 +14,27 @@
             50% { border-color: rgba(52, 211, 153, 1); }
             100% { border-color: rgba(52, 211, 153, 0.4); }
         }
+        .item-vitrina { filter: grayscale(100%); opacity: 0.3; transition: all 0.5s ease; }
+        .item-vitrina.desbloqueado { filter: grayscale(0%); opacity: 1; border-color: #34d399; background: rgba(16, 185, 129, 0.1); }
     </style>
 </head>
 <body class="bg-slate-900 text-slate-100 font-sans min-h-screen flex items-center justify-center p-4 relative overflow-x-hidden">
 
-    <div class="absolute inset-0 opacity-15 pointer-events-none flex items-center justify-center gap-8 flex-wrap p-20 select-none">
-        <div class="border border-emerald-500/30 p-6 rounded-2xl w-60 text-xs font-mono">📈 INVERSIONES AUTOMÁTICAS<br><span class="text-emerald-400">ALUAR: +24%</span></div>
-        <div class="border border-sky-500/30 p-6 rounded-2xl w-60 text-xs font-mono">🪙 BLOCKCHAIN ASSETS<br><span class="text-sky-400">BTC TANK: STABLE</span></div>
-        <div class="border border-purple-500/30 p-6 rounded-2xl w-60 text-xs font-mono">📊 ESTRATEGIA DE RIESGO<br><span class="text-purple-400">PATRIMONIO NETO ACTIVE</span></div>
-        <div class="border border-amber-500/30 p-6 rounded-2xl w-60 text-xs font-mono">⚠️ ALERTA DE MERCADO<br><span class="text-amber-400">PONZI SCHEME DETECTED</span></div>
+    <div class="absolute inset-0 opacity-10 pointer-events-none flex items-center justify-center gap-8 flex-wrap p-20 select-none">
+        <div class="border border-emerald-500/30 p-6 rounded-2xl w-60 text-xs font-mono">⏱️ TIME ENGINE PERSISTENT<br><span class="text-emerald-400">STATUS: 500 HOURS ACTIVE</span></div>
+        <div class="border border-sky-500/30 p-6 rounded-2xl w-60 text-xs font-mono">🏦 BANK INTERACTION<br><span class="text-sky-400">PLAZO FIJO LOCK: 90H</span></div>
+        <div class="border border-purple-500/30 p-6 rounded-2xl w-60 text-xs font-mono">🛍️ CONSUMPTION GALLERY<br><span class="text-purple-400">EXHIBITION LOCKER</span></div>
     </div>
 
-    <div class="w-full max-w-xl relative z-10">
+    <div class="w-full max-w-2xl relative z-10 my-4">
         
         <div id="contenedor-autenticacion" class="bg-slate-800/70 backdrop-blur-md p-8 rounded-2xl shadow-2xl border border-slate-700/60 text-center space-y-6">
-            
             <div id="auth-inicio" class="space-y-6">
-                <h1 class="text-3xl font-black text-emerald-400">Simulador Financiero 💰</h1>
-                <p class="text-sm text-slate-400">Bienvenido a la Luz Financiera. Ingresá a tu terminal de operaciones para gestionar tu patrimonio.</p>
+                <h1 class="text-3xl font-black text-emerald-400">Simulador Financiero Pro 💰</h1>
+                <p class="text-sm text-slate-400">Universo Financiero Persistente de 500 Horas. Gestioná tu liquidez y construí tu patrimonio en tiempo real.</p>
                 <div class="grid grid-cols-2 gap-4 pt-2">
-                    <button onclick="mostrarSubSeccion('auth-login')" class="bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-bold py-3 px-4 rounded-xl cursor-pointer transition-all btn-accion shadow-lg">
-                        Ingresar
-                    </button>
-                    <button onclick="mostrarSubSeccion('auth-registro')" class="bg-slate-700/60 hover:bg-slate-600/80 text-slate-200 font-bold py-3 px-4 rounded-xl cursor-pointer transition-all border border-slate-600 btn-accion shadow-lg">
-                        Crear Legajo
-                    </button>
+                    <button onclick="mostrarSubSeccion('auth-login')" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-3 px-4 rounded-xl cursor-pointer transition-all btn-accion shadow-lg">Ingresar Terminal</button>
+                    <button onclick="mostrarSubSeccion('auth-registro')" class="bg-slate-700/60 hover:bg-slate-600/80 text-slate-200 font-bold py-3 px-4 rounded-xl cursor-pointer transition-all border border-slate-600 btn-accion shadow-lg">Crear Legajo</button>
                 </div>
             </div>
 
@@ -46,20 +42,20 @@
                 <h2 class="text-2xl font-bold text-emerald-400">Terminal de Acceso</h2>
                 <div class="text-left space-y-3">
                     <div>
-                        <label class="text-xs text-slate-400 font-bold uppercase tracking-wider">Nombre de Usuario</label>
+                        <label class="text-xs text-slate-400 font-bold uppercase font-mono">Usuario Asignado</label>
                         <input type="text" id="input-login-user" placeholder="Ej: s_colombo" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl p-3 text-slate-100 focus:outline-none focus:border-emerald-500 font-mono text-sm">
                     </div>
                     <div>
-                        <label class="text-xs text-slate-400 font-bold uppercase tracking-wider">Contraseña Privada</label>
+                        <label class="text-xs text-slate-400 font-bold uppercase font-mono">Contraseña Privada</label>
                         <input type="password" id="input-login-pass" placeholder="••••••••" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl p-3 text-slate-100 focus:outline-none focus:border-emerald-500 font-mono text-sm">
                     </div>
                 </div>
-                <button onclick="procesarLogin()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-bold py-3 rounded-xl transition-all shadow-md cursor-pointer">Autenticar Sistema 🚀</button>
+                <button onclick="procesarLogin()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-3 rounded-xl transition-all cursor-pointer">Autenticar Sistema 🚀</button>
                 <button onclick="mostrarSubSeccion('auth-inicio')" class="text-xs text-slate-500 underline block mx-auto pt-2">Volver al menú</button>
             </div>
 
             <div id="auth-registro" class="hidden space-y-4">
-                <h2 class="text-2xl font-bold text-sky-400">Nuevo Registro de Inversor</h2>
+                <h2 class="text-2xl font-bold text-sky-400">Nuevo Inversor</h2>
                 <div class="text-left space-y-3">
                     <div class="grid grid-cols-2 gap-3">
                         <div>
@@ -72,11 +68,11 @@
                         </div>
                     </div>
                     <div>
-                        <label class="text-xs text-slate-400 font-bold uppercase">Asignar Contraseña Financiera</label>
-                        <input type="password" id="input-reg-pass" placeholder="Creá una clave fácil de recordar" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl p-3 text-slate-100 focus:outline-none focus:border-sky-500 text-sm">
+                        <label class="text-xs text-slate-400 font-bold uppercase">Contraseña Financiera</label>
+                        <input type="password" id="input-reg-pass" placeholder="Creá tu clave de operaciones" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl p-3 text-slate-100 focus:outline-none focus:border-sky-500 text-sm">
                     </div>
                 </div>
-                <button onclick="procesarRegistro()" class="w-full bg-sky-500 hover:bg-sky-600 text-slate-900 font-bold py-3 rounded-xl transition-all shadow-md cursor-pointer">Generar Credenciales Automatizadas 💾</button>
+                <button onclick="procesarRegistro()" class="w-full bg-sky-500 hover:bg-sky-600 text-slate-950 font-bold py-3 rounded-xl transition-all cursor-pointer">Generar Credenciales 💾</button>
                 <button onclick="mostrarSubSeccion('auth-inicio')" class="text-xs text-slate-500 underline block mx-auto pt-2">Volver al menú</button>
             </div>
         </div>
@@ -101,18 +97,17 @@
             <div id="slide-2" class="hidden slide-contenido space-y-4">
                 <h2 class="text-2xl font-black text-emerald-400">¿Qué es la Liquidez Disponible?</h2>
                 <p class="text-slate-300 text-sm leading-relaxed">Es el **oxígeno inmediato** de tus finanzas. Representa la cantidad de dinero (EduCoins) que tenés libre en la billetera virtual para operar **ya mismo** sin restricciones.</p>
-                <div class="bg-slate-900 p-4 rounded-xl border border-slate-750 text-xs font-mono text-slate-400">
-                    💡 <span class="text-slate-200 font-bold">Regla de Oro:</span> Podés tener inversiones por millones (como campos o propiedades), pero si no tenés <span class="text-emerald-400">Liquidez</span> para pagar la luz, financieramente estás inmovilizado.
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-700 text-xs font-mono text-slate-400">
+                    💡 <span class="text-slate-200 font-bold">Regla de Oro:</span> Podés congelar dinero a plazo fijo para ganar intereses, pero mientras esté allí encerrado perderás <span class="text-emerald-400">Liquidez</span> para comprar bienes o reaccionar a oportunidades.
                 </div>
             </div>
 
             <div id="slide-3" class="hidden slide-contenido space-y-4">
                 <h2 class="text-2xl font-black text-sky-400">El Patrimonio Neto</h2>
-                <p class="text-slate-300 text-sm leading-relaxed">Es la verdad absoluta de tu situación económica en el mercado. Indica cuánto dinero te quedaría en el bolsillo si hoy mismo vendieras todas tus pertenencias y pagaras cada una de tus deudas.</p>
+                <p class="text-slate-300 text-sm leading-relaxed">Es la verdad absoluta de tu situación económica. Al poner dinero en Plazo Fijo, tu Liquidez baja pero tu Patrimonio Neto se mantiene igual, porque el banco te debe ese capital. ¡La ganancia real aparece cuando cobrás los intereses!</p>
                 <div class="bg-slate-900 p-4 rounded-xl border border-sky-500/20 text-center font-mono text-base text-sky-300">
-                    PATRIMONIO NETO = <br><span class="text-emerald-400 text-sm">Liquidez</span> + <span class="text-slate-500 text-sm">Activos</span> - <span class="text-slate-500 text-sm">Pasivos</span>
+                    PATRIMONIO NETO = <br><span class="text-emerald-400 text-sm">Liquidez</span> + <span class="text-amber-400 text-sm">Plazo Fijo</span> + <span class="text-slate-500 text-sm">Activos</span> - <span class="text-slate-500 text-sm">Pasivos</span>
                 </div>
-                <p class="text-[11px] text-slate-500 text-center italic">En este Nivel 1, al no haber deudas ni activos cargados todavía, tu Liquidez y tu Patrimonio Neto serán exactamente iguales.</p>
             </div>
 
             <div class="flex justify-between pt-2 border-t border-slate-700">
@@ -141,87 +136,106 @@
                 </div>
             </div>
 
-            <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-750 text-center">
-                <p class="text-xs text-slate-400 uppercase font-mono tracking-widest mb-1 text-emerald-500">📣 Estado de Alerta del Mercado</p>
-                <p class="text-sm text-slate-200 font-medium" id="hud-feedback">
-                    Inicializando mesa de dinero... Tomá decisiones con cautela.
-                </p>
+            <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-750 text-center">
+                <p class="text-xs text-slate-400 uppercase font-mono tracking-widest mb-1 text-emerald-500">📣 Consola Central</p>
+                <p class="text-xs text-slate-200 font-medium font-mono" id="hud-feedback">Mesa de control lista.</p>
+            </div>
+
+            <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-700/80 space-y-3">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-xs font-bold uppercase text-amber-400 tracking-wider">🏦 Banco Central - Inversiones a Plazo</h3>
+                    <span class="text-[10px] bg-slate-800 border border-slate-700 px-2 py-0.5 rounded text-amber-300 font-mono">TNA: 15%</span>
+                </div>
+                
+                <div id="pf-modulo-crear" class="space-y-3">
+                    <p class="text-xs text-slate-400">Congelá fondos para ganar intereses. El dinero saldrá de tu liquidez pero permanecerá seguro en tu Patrimonio Neto.</p>
+                    <div class="flex gap-2">
+                        <input type="number" id="pf-input-monto" placeholder="Monto EC a colocar" class="flex-1 bg-slate-950 border border-slate-700 rounded-lg p-2 text-xs text-slate-100 font-mono focus:outline-none focus:border-amber-500">
+                        <button onclick="constituirPlazoFijo(90)" class="bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold px-3 rounded-lg cursor-pointer transition-all">Colocar a 90 Horas</button>
+                        <button onclick="constituirPlazoFijo(0.0166)" class="bg-slate-700 hover:bg-slate-600 text-slate-200 text-[10px] px-2 rounded-lg cursor-pointer transition-all font-mono" title="Testeo rápido de 1 minuto">PF 1 Min</button>
+                    </div>
+                </div>
+
+                <div id="pf-modulo-bloqueado" class="hidden bg-slate-950/80 border border-amber-500/20 p-3 rounded-lg text-center space-y-2">
+                    <p class="text-xs font-bold text-amber-400">🔒 Plazo Fijo Activo en Custodia</p>
+                    <div class="text-lg font-mono font-black text-slate-200" id="pf-txt-monto">0 EC</div>
+                    <div class="text-[11px] font-mono text-slate-400" id="pf-txt-reloj">Calculando tiempo restante...</div>
+                    <button id="pf-btn-liquidar" onclick="liquidarPlazoFijo()" disabled class="w-full bg-slate-800 text-slate-500 font-bold text-xs py-2 rounded-lg cursor-not-allowed transition-all">Fondos Inmovilizados</button>
+                </div>
             </div>
 
             <div class="space-y-3">
-                <h3 class="text-xs font-bold uppercase text-slate-400 tracking-wider">Opciones del Mercado (Nivel 1)</h3>
+                <h3 class="text-xs font-bold uppercase text-slate-400 tracking-wider">🛍️ Sector de Exhibición y Consumo (Bienes de Lujo)</h3>
                 
-                <button onclick="operarMercado(5000, '¡Golazo! Invertiste bien en Aluar, cobraste dividendos líquidos inmediatos.')" class="w-full text-left bg-slate-750 border border-slate-700 p-3 rounded-xl flex justify-between items-center hover:border-emerald-500 transition-all cursor-pointer btn-accion">
-                    <div>
-                        <p class="font-bold text-sm text-slate-200">📈 Cobrar Dividendos de Aluar</p>
-                        <p class="text-xs text-slate-400">Inyección directa a tu cuenta de liquidez.</p>
+                <div class="grid grid-cols-4 gap-2 bg-slate-950 p-3 rounded-xl border border-slate-750">
+                    <div id="item-bici" class="item-vitrina border border-slate-700 rounded-lg p-2 text-center">
+                        <span class="text-xl block">🚲</span><span class="text-[9px] font-mono block text-slate-400">Bici Urbana</span>
                     </div>
-                    <span class="text-emerald-400 font-mono font-bold text-sm">+5.000 EC</span>
-                </button>
+                    <div id="item-auris" class="item-vitrina border border-slate-700 rounded-lg p-2 text-center">
+                        <span class="text-xl block">🎧</span><span class="text-[9px] font-mono block text-slate-400">Auris Pro</span>
+                    </div>
+                    <div id="item-compu" class="item-vitrina border border-slate-700 rounded-lg p-2 text-center">
+                        <span class="text-xl block">💻</span><span class="text-[9px] font-mono block text-slate-400">Notebook</span>
+                    </div>
+                    <div id="item-moto" class="item-vitrina border border-slate-700 rounded-lg p-2 text-center">
+                        <span class="text-xl block">🛵</span><span class="text-[9px] font-mono block text-slate-400">Monopatín</span>
+                    </div>
+                </div>
 
-                <button onclick="operarMercado(-4000, 'Financiar en cuotas te comió la liquidez del mes debido al pago mínimo.')" class="w-full text-left bg-slate-750 border border-slate-700 p-3 rounded-xl flex justify-between items-center hover:border-red-500 transition-all cursor-pointer btn-accion">
-                    <div>
-                        <p class="font-bold text-sm text-slate-200">💳 Cancelar Intereses de Tarjeta</p>
-                        <p class="text-xs text-slate-400">Fuga de efectivo por malas decisiones de consumo.</p>
-                    </div>
-                    <span class="text-red-400 font-mono font-bold text-sm">-4.000 EC</span>
-                </button>
-
-                <button onclick="operarMercado(15000, '¡Nivel Leyenda! Tomaste ganancias de criptoactivos en el pico justo.')" class="w-full text-left bg-slate-750 border border-slate-700 p-3 rounded-xl flex justify-between items-center hover:border-sky-500 transition-all cursor-pointer btn-accion">
-                    <div>
-                        <p class="font-bold text-sm text-slate-200">🪙 Vender Cripto en Ganancia</p>
-                        <p class="text-xs text-slate-400">Liquidación total antes de la caída del ciclo.</p>
-                    </div>
-                    <span class="text-sky-400 font-mono font-bold text-sm">+15.000 EC</span>
-                </button>
-
-                <button onclick="operarMercado(-12000, 'Bancarrota. Te prometieron ganancias absurdas y cerraron el esquema.')" class="w-full text-left bg-slate-750 border border-slate-700 p-3 rounded-xl flex justify-between items-center hover:border-amber-500 transition-all cursor-pointer btn-accion">
-                    <div>
-                        <p class="font-bold text-sm text-slate-200">🚨 Estafa de Retorno Rápido (Ponzi)</p>
-                        <p class="text-xs text-slate-400">Congelaron los retiros en la plataforma ilegal.</p>
-                    </div>
-                    <span class="text-amber-400 font-mono font-bold text-sm">-12.000 EC</span>
-                </button>
+                <div class="grid grid-cols-2 gap-2 text-left">
+                    <button onclick="comprarProducto('bici', 2500, '¡Felicidades! Compraste la Bici Urbana. Se agregó a tu vitrina.')" class="bg-slate-750 border border-slate-700 p-2 rounded-xl flex justify-between items-center hover:border-purple-500 transition-all cursor-pointer text-xs btn-accion">
+                        <span>🚲 Comprar Bici</span><span class="font-mono text-purple-400 font-bold">2.500 EC</span>
+                    </button>
+                    <button onclick="comprarProducto('auris', 4000, '¡Excelente! Destrabaste los Auris Pro con cancelación de ruido.')" class="bg-slate-750 border border-slate-700 p-2 rounded-xl flex justify-between items-center hover:border-purple-500 transition-all cursor-pointer text-xs btn-accion">
+                        <span>🎧 Comprar Auris</span><span class="font-mono text-purple-400 font-bold">4.000 EC</span>
+                    </button>
+                    <button onclick="comprarProducto('compu', 12000, '¡Locura total! Compraste la Notebook de desarrollo.')" class="bg-slate-750 border border-slate-700 p-2 rounded-xl flex justify-between items-center hover:border-purple-500 transition-all cursor-pointer text-xs btn-accion">
+                        <span>💻 Comprar Notebook</span><span class="font-mono text-purple-400 font-bold">12.000 EC</span>
+                    </button>
+                    <button onclick="comprarProducto('moto', 8500, '¡Épico! Ya tenés tu Monopatín Eléctrico de alta gama.')" class="bg-slate-750 border border-slate-700 p-2 rounded-xl flex justify-between items-center hover:border-purple-500 transition-all cursor-pointer text-xs btn-accion">
+                        <span>🛵 Comprar Monopatín</span><span class="font-mono text-purple-400 font-bold">8.500 EC</span>
+                    </button>
+                </div>
             </div>
 
             <div class="space-y-2 border-t border-slate-700 pt-4">
-                <h3 class="text-xs font-bold uppercase text-slate-400 tracking-wider">Tablero de Rangos Oficiales</h3>
-                <div id="r-leyenda" class="border bg-slate-900/30 border-slate-800 p-2 rounded-xl flex justify-between items-center text-xs text-slate-500 font-mono"><span>👑 Rango Gardel</span><span>>= 30.000 EC</span></div>
-                <div id="r-pro" class="border bg-slate-900/30 border-slate-800 p-2 rounded-xl flex justify-between items-center text-xs text-slate-500 font-mono"><span>💼 Inversor Pro</span><span>20.000 a 29.999 EC</span></div>
-                <div id="r-piloto" class="border bg-slate-900/30 border-slate-800 p-2 rounded-xl flex justify-between items-center text-xs text-slate-500 font-mono"><span>🚗 Piloto de Tormentas</span><span>10.000 a 19.999 EC</span></div>
-                <div id="r-alerta" class="border bg-slate-900/30 border-slate-800 p-2 rounded-xl flex justify-between items-center text-xs text-slate-500 font-mono"><span>⚠️ Alerta de Liquidez</span><span>4.500 a 9.999 EC</span></div>
-                <div id="r-ponzi" class="border bg-slate-900/30 border-slate-800 p-2 rounded-xl flex justify-between items-center text-xs text-slate-500 font-mono"><span>📉 Víctima de Ponzi</span><span>< 4.500 EC</span></div>
+                <h3 class="text-xs font-bold uppercase text-slate-500 tracking-wider">Actividades Adicionales</h3>
+                <div class="flex gap-2">
+                    <button onclick="operarMesaDirecta(1500, '💡 Contestaste correctamente la trivia sobre tasa de interés nominal.')" class="flex-1 bg-slate-700/40 hover:bg-slate-700 text-slate-300 text-[11px] p-2 rounded-lg cursor-pointer transition-all border border-slate-600 font-mono text-center">📝 Trivia Ganada (+1.500 EC)</button>
+                    <button onclick="operarMesaDirecta(-2000, '💥 Se te rompió la pantalla del celu. Tuviste que liquidar efectivo para el arreglo.')" class="flex-1 bg-slate-700/40 hover:bg-slate-700 text-slate-300 text-[11px] p-2 rounded-lg cursor-pointer transition-all border border-slate-600 font-mono text-center">⚠️ Emergencia Celular (-2.000 EC)</button>
+                </div>
             </div>
 
-            <button onclick="cerrarSesionCompleta()" class="text-xs text-red-400 underline font-semibold block mx-auto pt-2 cursor-pointer">
-                Guardar Progreso y Cerrar Sistema
-            </button>
+            <div class="grid grid-cols-5 gap-1 text-[9px] font-mono text-center pt-2">
+                <div id="r-ponzi" class="bg-slate-900 border border-slate-800 p-1 rounded text-slate-600">📉 Ponzi</div>
+                <div id="r-alerta" class="bg-slate-900 border border-slate-800 p-1 rounded text-slate-600">⚠️ Alerta</div>
+                <div id="r-piloto" class="bg-slate-900 border border-slate-800 p-1 rounded text-slate-600">🚗 Piloto</div>
+                <div id="r-pro" class="bg-slate-900 border border-slate-800 p-1 rounded text-slate-600">💼 Pro</div>
+                <div id="r-leyenda" class="bg-slate-900 border border-slate-800 p-1 rounded text-slate-600">👑 Gardel</div>
+            </div>
+
+            <button onclick="cerrarSesionCompleta()" class="text-xs text-red-400 underline font-semibold block mx-auto pt-2 cursor-pointer">Guardar Progreso y Salir</button>
         </div>
 
     </div>
 
     <script>
-        // URL DE TU SERVIDOR CENTRAL PROPIO SIN CORS COMPROBADO
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyJiI70mxWFkpKFVhtglODYi6rF-ueQ8U5QAUrnhWR0lc4AUJ20_WLKG1tRA2b_CJlqzg/exec";
 
-        // Estado local de la sesión activa
         let sessionUsuario = {
-            nombre: "",
-            apellido: "",
-            username: "",
-            liquidez: 10000,
-            patrimonio: 10000,
-            rango: "Piloto de Tormentas"
+            nombre: "", apellido: "", username: "",
+            liquidez: 10000, patrimonio: 10000, rango: "Piloto de Tormentas",
+            pfMonto: 0, pfVence: "", inventario: ""
         };
 
         let currentSlide = 1;
         const totalSlides = 3;
+        let bucleReloj = null;
 
         function mostrarSubSeccion(idSub) {
             document.getElementById('auth-inicio').classList.add('hidden');
             document.getElementById('auth-login').classList.add('hidden');
             document.getElementById('auth-registro').classList.add('hidden');
-            
             document.getElementById(idSub).classList.remove('hidden');
         }
 
@@ -229,79 +243,57 @@
             document.getElementById('contenedor-autenticacion').classList.add('hidden');
             document.getElementById('contenedor-nivel0').classList.add('hidden');
             document.getElementById('contenedor-juego').classList.add('hidden');
-
             document.getElementById(idContenedor).classList.remove('hidden');
         }
 
-        // CONTROLADOR DE INTRODUCCIÓN (NIVEL 0)
         function moverSlide(direccion) {
             document.getElementById(`slide-${currentSlide}`).classList.add('hidden');
             currentSlide += direccion;
-
             if (currentSlide > totalSlides) {
-                // Terminó la presentación del Nivel 0, entramos al juego posta
                 cambiarFaseGlobal('contenedor-juego');
                 return;
             }
-
             document.getElementById(`slide-${currentSlide}`).classList.remove('hidden');
             document.getElementById('slide-contador').innerText = `Slide ${currentSlide} de ${totalSlides}`;
-            
             document.getElementById('btn-slide-atras').disabled = (currentSlide === 1);
             document.getElementById('btn-slide-sig').innerText = (currentSlide === totalSlides) ? "Comenzar Nivel 1 🚀" : "Siguiente ➡️";
         }
 
-        // PROCESADOR: LOGIN TRADICIONAL
         function procesarLogin() {
             const user = document.getElementById('input-login-user').value.trim();
             const pass = document.getElementById('input-login-pass').value.trim();
-
-            if(!user || !pass) return alert("Por favor completa los dos campos requeridos.");
+            if(!user || !pass) return alert("Por favor completa los campos.");
 
             fetch(`${SCRIPT_URL}?action=login&username=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}`)
                 .then(res => res.json())
                 .then(data => {
                     if (data.status === "success") {
                         cargarDatosEnMemoria(data);
-                        // Como ya conoce el juego, va directo al Nivel 1
                         cambiarFaseGlobal('contenedor-juego');
                     } else {
-                        alert("Error de Acceso: " + data.message);
+                        alert("Error: " + data.message);
                     }
-                })
-                .catch(err => alert("Falla de red al verificar credenciales."));
+                }).catch(err => alert("Error de red de terminal."));
         }
 
-        // PROCESADOR: REGISTRO CON CREACIÓN DE ALIAS AUTOMÁTICO
         function procesarRegistro() {
             const nom = document.getElementById('input-reg-nombre').value.trim();
             const ape = document.getElementById('input-reg-apellido').value.trim();
             const pass = document.getElementById('input-reg-pass').value.trim();
-
-            if(!nom || !ape || !pass) return alert("Todos los campos son obligatorios para crear tu legajo.");
+            if(!nom || !ape || !pass) return alert("Campos incompletos.");
 
             fetch(`${SCRIPT_URL}?action=register&nombre=${encodeURIComponent(nom)}&apellido=${encodeURIComponent(ape)}&password=${encodeURIComponent(pass)}`)
                 .then(res => res.json())
                 .then(data => {
                     if (data.status === "success") {
-                        alert(`¡Legajo creado exitosamente!\n\n⚠️ TU USUARIO ASIGNADO ES: ${data.username}\n\nUsá este alias para tus próximos ingresos.`);
+                        alert(`¡Legajo Creado!\n\n⚠️ TU USUARIO ASIGNADO ES: ${data.username}`);
                         cargarDatosEnMemoria(data);
-                        
-                        // Los nuevos van directo a la capacitación (Nivel 0)
                         currentSlide = 1;
-                        document.getElementById('btn-slide-atras').disabled = true;
-                        document.getElementById('btn-slide-sig').innerText = "Siguiente ➡️";
-                        document.getElementById('slide-contador').innerText = "Slide 1 de 3";
-                        document.getElementById('slide-1').classList.remove('hidden');
-                        document.getElementById('slide-2').classList.add('hidden');
-                        document.getElementById('slide-3').classList.add('hidden');
-                        
                         cambiarFaseGlobal('contenedor-nivel0');
                     } else {
-                        alert("Error al registrar: " + data.message);
+                        alert("Error: " + data.message);
                     }
-                })
-                .catch(err => alert("Error en el canal de suscripción remota."));
+                }).catch(err => alert("Falla de registro remoto."));
         }
 
         function cargarDatosEnMemoria(datos) {
@@ -311,30 +303,177 @@
             sessionUsuario.liquidez = Number(datos.liquidez);
             sessionUsuario.patrimonio = Number(datos.patrimonio);
             sessionUsuario.rango = datos.rango;
+            sessionUsuario.pfMonto = Number(datos.pfMonto);
+            sessionUsuario.pfVence = datos.pfVence;
+            sessionUsuario.inventario = datos.inventario || "";
 
             document.getElementById('hud-nombre').innerText = `👤 ${sessionUsuario.nombre} ${sessionUsuario.apellido}`;
             document.getElementById('hud-alias').innerText = `USER: ${sessionUsuario.username}`;
             
+            actualizarVitrinaVisual();
             renderizarHUD();
+            inicializarRelojPlazoFijo();
         }
 
-        function operarMercado(monto, mensaje) {
-            // Modificamos liquidez y patrimonio simultáneamente en Nivel 1
+        // CONTROL DEL PLAZO FIJO ASÍNCRONO
+        function constituirPlazoFijo(horas) {
+            const monto = Math.floor(Number(document.getElementById('pf-input-monto').value));
+            if (isNaN(monto) || monto <= 0) return alert("Ingresá un monto de EduCoins válido.");
+            if (monto > sessionUsuario.liquidez) return alert("No tenés suficiente Liquidez Disponible para este bloqueo.");
+
+            // Descontamos del efectivo inmediato (El Patrimonio Neto NO BAJA, muta a crédito)
+            sessionUsuario.liquidez -= monto;
+            sessionUsuario.pfMonto = monto;
+            
+            // Calculamos fecha de vencimiento real basada en milisegundos
+            const ahora = new Date();
+            const tiempoFuturo = ahora.getTime() + (horas * 60 * 60 * 1000);
+            sessionUsuario.pfVence = new Date(tiempoFuturo).toISOString();
+
+            document.getElementById('pf-input-monto').value = "";
+            document.getElementById('hud-feedback').innerText = `🏦 Plazo Fijo constituido por ${horas === 90 ? '90 horas' : '1 minuto'}. Capital inmovilizado.`;
+            
+            renderizarHUD();
+            sincronizarServidor();
+            inicializarRelojPlazoFijo();
+        }
+
+        function inicializarRelojPlazoFijo() {
+            if(bucleReloj) clearInterval(bucleReloj);
+
+            if (!sessionUsuario.pfVence || sessionUsuario.pfMonto <= 0) {
+                document.getElementById('pf-modulo-crear').classList.remove('hidden');
+                document.getElementById('pf-modulo-bloqueado').classList.add('hidden');
+                return;
+            }
+
+            document.getElementById('pf-modulo-crear').classList.add('hidden');
+            document.getElementById('pf-modulo-bloqueado').classList.remove('hidden');
+            document.getElementById('pf-txt-monto').innerText = `${sessionUsuario.pfMonto.toLocaleString()} EC`;
+
+            bucleReloj = setInterval(function() {
+                const ahora = new Date().getTime();
+                const vencimiento = new Date(sessionUsuario.pfVence).getTime();
+                const restante = vencimiento - ahora;
+
+                if (restante <= 0) {
+                    clearInterval(bucleReloj);
+                    document.getElementById('pf-txt-reloj').innerHTML = "<span class='text-emerald-400 font-bold'>¡Fondos Disponibles para Liquidación!</span>";
+                    const btn = document.getElementById('pf-btn-liquidar');
+                    btn.disabled = false;
+                    btn.innerText = "Cobrar Capital + Intereses 💰";
+                    btn.className = "w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs py-2 rounded-lg cursor-pointer transition-all shadow-md";
+                } else {
+                    // Formateo de cuenta regresiva
+                    const horas = Math.floor(restante / (1000 * 60 * 60));
+                    const minutos = Math.floor((restante % (1000 * 60 * 60)) / (1000 * 60));
+                    const segundos = Math.floor((restante % (1000 * 60)) / 1000);
+                    document.getElementById('pf-txt-reloj').innerText = `Bloqueado por: ${horas}h ${minutos}m ${segundos}s`;
+                    
+                    const btn = document.getElementById('pf-btn-liquidar');
+                    btn.disabled = true;
+                    btn.innerText = "Fondos Inmovilizados";
+                    btn.className = "w-full bg-slate-800 text-slate-500 font-bold text-xs py-2 rounded-lg cursor-not-allowed transition-all";
+                }
+            }, 1000);
+        }
+
+        function liquidarPlazoFijo() {
+            // Tasa fija simulada: 15% directo de premio
+            const premioInteres = Math.floor(sessionUsuario.pfMonto * 0.15);
+            const totalDevolucion = sessionUsuario.pfMonto + premioInteres;
+
+            // Retorna a liquidez y el premio aumenta el patrimonio total
+            sessionUsuario.liquidez += totalDevolucion;
+            sessionUsuario.patrimonio += premioInteres;
+            
+            sessionUsuario.pfMonto = 0;
+            sessionUsuario.pfVence = "";
+
+            document.getElementById('hud-feedback').innerText = `🏦 ¡Operación finalizada con éxito! Recuperaste el capital y cobraste +${premioInteres} EC de intereses puros.`;
+            
+            evaluarNuevoRango();
+            renderizarHUD();
+            sincronizarServidor();
+            inicializarRelojPlazoFijo();
+        }
+
+        // COMPRA DE BIENES DE LUXE (CONSUMO)
+        function comprarProducto(codigo, precio, mensaje) {
+            // Validar si ya se compró
+            let lista = sessionUsuario.inventario ? sessionUsuario.inventario.split(",") : [];
+            if (lista.includes(codigo)) return alert("Ya adquiriste este bien, está exhibido en tu vitrina.");
+
+            if (sessionUsuario.liquidez < precio) return alert("No tenés suficiente Liquidez Disponible. ¡Tu capital puede estar inmovilizado en el banco!");
+
+            // Consumo: Baja la liquidez y BAJA el patrimonio (El gasto de consumo destruye riqueza corporativa)
+            sessionUsuario.liquidez -= precio;
+            sessionUsuario.patrimonio -= precio;
+            
+            lista.push(codigo);
+            sessionUsuario.inventario = lista.join(",");
+
+            document.getElementById('hud-feedback').innerText = mensaje;
+            
+            actualizarVitrinaVisual();
+            evaluarNuevoRango();
+            renderizarHUD();
+            sincronizarServidor();
+        }
+
+        function actualizarVitrinaVisual() {
+            const items = ['bici', 'auris', 'compu', 'moto'];
+            let lista = sessionUsuario.inventario ? sessionUsuario.inventario.split(",") : [];
+            
+            items.forEach(it => {
+                const el = document.getElementById(`item-${it}`);
+                if(lista.includes(it)) {
+                    el.classList.add('desbloqueado');
+                } else {
+                    el.classList.remove('desbloqueado');
+                }
+            });
+        }
+
+        function operarMesaDirecta(monto, mensaje) {
             sessionUsuario.liquidez += monto;
             sessionUsuario.patrimonio += monto;
+            document.getElementById('hud-feedback').innerText = mensaje;
+            evaluarNuevoRango();
+            renderizarHUD();
+            sincronizarServidor();
+        }
 
-            // Evaluamos nuevo rango en caliente
+        function evaluarNuevoRango() {
             let pat = sessionUsuario.patrimonio;
             if (pat >= 30000) sessionUsuario.rango = "Rango Gardel";
             else if (pat >= 20000) sessionUsuario.rango = "Inversor Pro";
             else if (pat >= 10000) sessionUsuario.rango = "Piloto de Tormentas";
             else if (pat >= 4500) sessionUsuario.rango = "Alerta de Liquidez";
             else sessionUsuario.rango = "Víctima de Ponzi";
+        }
 
-            renderizarHUD();
-            document.getElementById('hud-feedback').innerText = mensaje;
+        function renderizarHUD() {
+            document.getElementById('hud-liquidez').innerText = `${sessionUsuario.liquidez.toLocaleString()} EC`;
+            document.getElementById('hud-patrimonio').innerText = `${sessionUsuario.patrimonio.toLocaleString()} EC`;
 
-            // Sincronización en segundo plano con la base de datos central
+            const idRangos = {
+                "Rango Gardel": "r-leyenda", "Inversor Pro": "r-pro",
+                "Piloto de Tormentas": "r-piloto", "Alerta de Liquidez": "r-alerta",
+                "Víctima de Ponzi": "r-ponzi"
+            };
+
+            Object.values(idRangos).forEach(id => {
+                document.getElementById(id).className = "bg-slate-900 border border-slate-800 p-1 rounded text-slate-600";
+            });
+
+            const idActivo = idRangos[sessionUsuario.rango];
+            if (idActivo) {
+                document.getElementById(idActivo).className = "bg-emerald-500 text-slate-950 border border-emerald-400 p-1 rounded font-bold scale-105 shadow-md";
+            }
+        }
+
+        function sincronizarServidor() {
             fetch(SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -343,47 +482,21 @@
                     username: sessionUsuario.username,
                     liquidez: sessionUsuario.liquidez,
                     patrimonio: sessionUsuario.patrimonio,
-                    rango: sessionUsuario.rango
+                    rango: sessionUsuario.rango,
+                    pfMonto: sessionUsuario.pfMonto,
+                    pfVence: sessionUsuario.pfVence,
+                    inventario: sessionUsuario.inventario
                 })
-            }).catch(err => console.log("Sincronización demorada"));
-        }
-
-        function renderizarHUD() {
-            document.getElementById('hud-liquidez').innerText = `${sessionUsuario.liquidez.toLocaleString()} EC`;
-            document.getElementById('hud-patrimonio').innerText = `${sessionUsuario.patrimonio.toLocaleString()} EC`;
-
-            // Reset de estilos visuales en el ranking
-            const idRangos = ['r-leyenda', 'r-pro', 'r-piloto', 'r-alerta', 'r-ponzi'];
-            idRangos.forEach(id => {
-                document.getElementById(id).className = "border bg-slate-900/30 border-slate-800 p-2 rounded-xl flex justify-between items-center text-xs text-slate-500 font-mono";
-            });
-
-            // Destacar casillero actual
-            let idActivo = "";
-            let r = sessionUsuario.rango;
-            if (r === "Rango Gardel") idActivo = "r-leyenda";
-            else if (r === "Inversor Pro") idActivo = "r-pro";
-            else if (r === "Piloto de Tormentas") idActivo = "r-piloto";
-            else if (r === "Alerta de Liquidez") idActivo = "r-alerta";
-            else idActivo = "r-ponzi";
-
-            const box = document.getElementById(idActivo);
-            if (idActivo === "r-leyenda" || idActivo === "r-pro") {
-                box.className = "border-2 border-emerald-500 bg-slate-750 p-2 rounded-xl flex justify-between items-center text-xs text-emerald-400 font-bold scale-[1.01] shadow-md rango-ganador";
-            } else if (idActivo === "r-piloto") {
-                box.className = "border-2 border-sky-500 bg-slate-750 p-2 rounded-xl flex justify-between items-center text-xs text-sky-400 font-bold scale-[1.01] shadow-md";
-            } else {
-                box.className = "border-2 border-amber-500 bg-slate-750 p-2 rounded-xl flex justify-between items-center text-xs text-amber-400 font-bold scale-[1.01] shadow-md";
-            }
+            }).catch(e => console.log("Retraso en sincronización remota"));
         }
 
         function cerrarSesionCompleta() {
+            if(bucleReloj) clearInterval(bucleReloj);
             document.getElementById('input-login-user').value = "";
             document.getElementById('input-login-pass').value = "";
             document.getElementById('input-reg-nombre').value = "";
             document.getElementById('input-reg-apellido').value = "";
             document.getElementById('input-reg-pass').value = "";
-            
             mostrarSubSeccion('auth-inicio');
             cambiarFaseGlobal('contenedor-autenticacion');
         }
