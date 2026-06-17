@@ -215,14 +215,14 @@
 
             <!-- MÓDULO: CHANGARROS DE LIQUIDEZ RÁPIDA -->
             <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-700 space-y-3">
-                <h3 class="text-xs font-bold uppercase tracking-wider text-amber-400 font-mono">⚡ Changarros Disponibles (Liquidez Rápida)</h3>
-                <p class="text-[11px] text-slate-400">Si te quedaste sin saldo, podés operar estos módulos para ganar capital básico. ¡Las recompensas son moderadas!</p>
+                <h3 class="text-xs font-bold uppercase tracking-wider text-amber-400 font-mono">⚡ Oportunidades de Ingresos (Liquidez Rápida)</h3>
+                <p class="text-[11px] text-slate-400">Si te quedaste sin saldo, podés operar estos módulos para ganar capital básico!</p>
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <button onclick="abrirMinijuego('trivia')" class="bg-slate-950 hover:bg-slate-900 border border-slate-700 hover:border-sky-500/50 p-3 rounded-lg text-left transition-all cursor-pointer group">
                         <div class="flex justify-between items-center">
                             <span class="text-xs font-bold text-sky-400 font-mono">🧮 Trivia Matemática</span>
-                            <span class="text-[10px] text-emerald-400 font-mono bg-emerald-950 px-1.5 py-0.5 rounded border border-emerald-800/30">+50 EC c/u</span>
+                            <span class="text-[10px] text-emerald-400 font-mono bg-emerald-950 px-1.5 py-0.5 rounded border border-emerald-800/30">+500 EC c/u</span>
                         </div>
                         <p class="text-[10px] text-slate-500 mt-1 group-hover:text-slate-400">Desafíos rápidos de cálculo y lógica financiera.</p>
                     </button>
@@ -230,7 +230,7 @@
                     <button onclick="abrirMinijuego('conceptos')" class="bg-slate-950 hover:bg-slate-900 border border-slate-700 hover:border-purple-500/50 p-3 rounded-lg text-left transition-all cursor-pointer group">
                         <div class="flex justify-between items-center">
                             <span class="text-xs font-bold text-purple-400 font-mono">🧠 Auditoría de Conceptos</span>
-                            <span class="text-[10px] text-emerald-400 font-mono bg-emerald-950 px-1.5 py-0.5 rounded border border-emerald-800/30">+50 EC c/u</span>
+                            <span class="text-[10px] text-emerald-400 font-mono bg-emerald-950 px-1.5 py-0.5 rounded border border-emerald-800/30">+500 EC c/u</span>
                         </div>
                         <p class="text-[10px] text-slate-500 mt-1 group-hover:text-slate-400">Repaso interactivo de las definiciones del taller.</p>
                     </button>
@@ -253,7 +253,7 @@
     <div id="modal-minijuego" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
         <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-xl p-5 space-y-4 shadow-2xl relative">
             <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                <h3 id="minijuego-titulo" class="text-sm font-mono font-black text-slate-200">🎮 CONFIGURANDO CHANGARRO...</h3>
+                <h3 id="minijuego-titulo" class="text-sm font-mono font-black text-slate-200">🎮 CONFIGURANDO OPORTUNIDAD...</h3>
                 <button onclick="cerrarMinijuego()" class="text-slate-500 hover:text-slate-300 font-bold text-sm cursor-pointer">✕</button>
             </div>
             <div id="minijuego-pantalla" class="space-y-4">
@@ -503,7 +503,7 @@
             const banco = tipo === 'trivia' ? BANCO_TRIVIA : BANCO_CONCEPTOS;
             preguntasFiltradas = [...banco].sort(() => 0.5 - Math.random()).slice(0, 3);
             
-            document.getElementById('minijuego-titulo').innerText = tipo === 'trivia' ? "🧮 CHANGARRO: TRIVIA MATEMÁTICA" : "🧠 CHANGARRO: AUDITORÍA DE CONCEPTOS";
+            document.getElementById('minijuego-titulo').innerText = tipo === 'trivia' ? "🧮 DESAFÍO: TRIVIA MATEMÁTICA" : "🧠 DESAFÍO: AUDITORÍA DE CONCEPTOS";
             document.getElementById('modal-minijuego').classList.remove('hidden');
             
             presentarPregunta();
@@ -513,8 +513,8 @@
             const pantalla = document.getElementById('minijuego-pantalla');
             if (preguntaActualIndice >= preguntasFiltradas.length) {
                 let bonus = 0;
-                if (gananciasRonda === preguntasFiltradas.length * 50) {
-                    bonus = 150; 
+                if (gananciasRonda === preguntasFiltradas.length * 500) {
+                    bonus = 1500; 
                 }
                 const totalGanado = gananciasRonda + bonus;
                 
@@ -531,7 +531,7 @@
                     <div class="text-center space-y-3 py-2">
                         <p class="text-xs text-slate-400">¡Ronda de trabajo finalizada con éxito!</p>
                         <p class="text-2xl font-black text-emerald-400 font-mono">+${totalGanado} EC</p>
-                        ${bonus > 0 ? '<p class="text-[10px] text-amber-400 font-mono font-bold">⭐ ¡BONUS DE RANGO PERFECTO INCLUIDO (+150 EC)!</p>' : ''}
+                        ${bonus > 0 ? '<p class="text-[10px] text-amber-400 font-mono font-bold">⭐ ¡BONUS DE RANGO PERFECTO INCLUIDO (+1500 EC)!</p>' : ''}
                         <p class="text-[11px] text-slate-500 font-mono">Las variables fueron impactadas y sincronizadas en la base central.</p>
                         <button onclick="cerrarMinijuego()" class="w-full bg-slate-800 hover:bg-slate-700 font-bold text-xs py-2.5 rounded-lg cursor-pointer mt-2">Volver al Mercado de Inversión</button>
                     </div>
@@ -566,8 +566,8 @@
         function evaluarRespuesta(indiceSeleccionado) {
             const p = preguntasFiltradas[preguntaActualIndice];
             if (indiceSeleccionado === p.c) {
-                gananciasRonda += 50;
-                alert("¡Correcto! +50 EC acumulados.");
+                gananciasRonda += 500;
+                alert("¡Correcto! +500 EC acumulados.");
             } else {
                 alert(`Incorrecto. La respuesta correcta era: ${p.a[p.c]}`);
             }
