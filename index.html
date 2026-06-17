@@ -20,6 +20,7 @@
 </head>
 <body class="bg-slate-900 text-slate-100 font-sans min-h-screen flex items-center justify-center p-4 relative overflow-x-hidden">
 
+    <!-- Capa de diseño de fondo -->
     <div class="absolute inset-0 opacity-10 pointer-events-none flex items-center justify-center gap-8 flex-wrap p-20 select-none">
         <div class="border border-emerald-500/30 p-6 rounded-2xl w-60 text-xs font-mono">⏱️ TIME ENGINE PERSISTENT<br><span class="text-emerald-400">STATUS: 500 HOURS ACTIVE</span></div>
         <div class="border border-sky-500/30 p-6 rounded-2xl w-60 text-xs font-mono">🏦 BANK INTERACTION<br><span class="text-sky-400">PLAZO FIJO LOCK: 90H</span></div>
@@ -28,6 +29,7 @@
 
     <div class="w-full max-w-2xl relative z-10 my-4">
         
+        <!-- PANTALLA: AUTENTICACIÓN -->
         <div id="contenedor-autenticacion" class="bg-slate-800/70 backdrop-blur-md p-8 rounded-2xl shadow-2xl border border-slate-700/60 text-center space-y-6">
             <div id="auth-inicio" class="space-y-6">
                 <h1 class="text-3xl font-black text-emerald-400">Simulador Financiero Pro 💰</h1>
@@ -77,6 +79,7 @@
             </div>
         </div>
 
+        <!-- PANTALLA: INDUCCIÓN / NIVEL 0 -->
         <div id="contenedor-nivel0" class="hidden bg-slate-800 p-8 rounded-2xl shadow-2xl border border-slate-700 space-y-6">
             <div class="flex justify-between items-center border-b border-slate-700 pb-3">
                 <span class="text-xs font-bold text-amber-400 uppercase tracking-widest font-mono">INDUCCIÓN // NIVEL 0</span>
@@ -104,7 +107,7 @@
 
             <div id="slide-3" class="hidden slide-contenido space-y-4">
                 <h2 class="text-2xl font-black text-sky-400">El Patrimonio Neto</h2>
-                <p class="text-slate-300 text-sm leading-relaxed">Es la verdad absoluta de tu situación económica. Al poner dinero en Plazo Fijo, tu Liquidez baja pero tu Patrimonio Neto se mantiene igual, porque el banco te debe ese capital. ¡La ganancia real aparece cuando cobrás los intereses!</p>
+                <p class="text-slate-300 text-sm leading-relaxed">Es la verdad absoluta de tu situation económica. Al poner dinero en Plazo Fijo, tu Liquidez baja pero tu Patrimonio Neto se mantiene igual, porque el banco te debe ese capital. ¡La ganancia real aparece cuando cobrás los intereses!</p>
                 <div class="bg-slate-900 p-4 rounded-xl border border-sky-500/20 text-center font-mono text-base text-sky-300">
                     PATRIMONIO NETO = <br><span class="text-emerald-400 text-sm">Liquidez</span> + <span class="text-amber-400 text-sm">Plazo Fijo</span> + <span class="text-slate-500 text-sm">Activos</span> - <span class="text-slate-500 text-sm">Pasivos</span>
                 </div>
@@ -116,9 +119,9 @@
             </div>
         </div>
 
+        <!-- PANTALLA: NÚCLEO DEL JUEGO (HUD CENTRAL) -->
         <div id="contenedor-juego" class="hidden bg-slate-800 p-6 rounded-2xl shadow-2xl border border-slate-700 space-y-6">
             
-           <!-- MARCADORES SUPERIORES CON RELOJ GLOBAL PERSISTENTE -->
             <div class="border-b border-slate-700 pb-4 space-y-3">
                 <!-- Reloj Global de 500 Horas -->
                 <div class="bg-slate-950/80 border border-red-500/30 rounded-xl p-2.5 text-center flex justify-between items-center px-4 shadow-inner">
@@ -145,11 +148,13 @@
                 </div>
             </div>
 
+            <!-- Consola de Feedback Operativo -->
             <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-750 text-center">
                 <p class="text-xs text-slate-400 uppercase font-mono tracking-widest mb-1 text-emerald-500">📣 Consola Central</p>
                 <p class="text-xs text-slate-200 font-medium font-mono" id="hud-feedback">Mesa de control lista.</p>
             </div>
 
+            <!-- MÓDULO: PLAZO FIJO -->
             <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-700/80 space-y-3">
                 <div class="flex justify-between items-center">
                     <h3 class="text-xs font-bold uppercase text-amber-400 tracking-wider">🏦 Banco Central - Inversiones a Plazo</h3>
@@ -173,6 +178,7 @@
                 </div>
             </div>
 
+            <!-- MÓDULO: VITRINA Y COMERCIO -->
             <div class="space-y-3">
                 <h3 class="text-xs font-bold uppercase text-slate-400 tracking-wider">🛍️ Sector de Exhibición y Consumo (Bienes de Lujo)</h3>
                 
@@ -207,29 +213,31 @@
                 </div>
             </div>
 
-            <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-3">
-    <h3 class="text-xs font-bold uppercase tracking-wider text-amber-400 font-mono">⚡ Ingresos Extra Disponibles (Liquidez Rápida)</h3>
-    <p class="text-[11px] text-slate-400">Si te quedaste sin saldo, podés operar estos módulos para ganar capital básico!</p>
-    
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <button onclick="abrirMinijuego('trivia')" class="bg-slate-950 hover:bg-slate-900 border border-slate-700 hover:border-sky-500/50 p-3 rounded-lg text-left transition-all cursor-pointer group">
-            <div class="flex justify-between items-center">
-                <span class="text-xs font-bold text-sky-400 font-mono">🧮 Trivia Matemática</span>
-                <span class="text-[10px] text-emerald-400 font-mono bg-emerald-950 px-1.5 py-0.5 rounded border border-emerald-800/30">+50 EC c/u</span>
-            </div>
-            <p class="text-[10px] text-slate-500 mt-1 group-hover:text-slate-400">Desafíos rápidos de cálculo y lógica financiera.</p>
-        </button>
+            <!-- MÓDULO: CHANGARROS DE LIQUIDEZ RÁPIDA -->
+            <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-700 space-y-3">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-amber-400 font-mono">⚡ Changarros Disponibles (Liquidez Rápida)</h3>
+                <p class="text-[11px] text-slate-400">Si te quedaste sin saldo, podés operar estos módulos para ganar capital básico. ¡Las recompensas son moderadas!</p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <button onclick="abrirMinijuego('trivia')" class="bg-slate-950 hover:bg-slate-900 border border-slate-700 hover:border-sky-500/50 p-3 rounded-lg text-left transition-all cursor-pointer group">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-bold text-sky-400 font-mono">🧮 Trivia Matemática</span>
+                            <span class="text-[10px] text-emerald-400 font-mono bg-emerald-950 px-1.5 py-0.5 rounded border border-emerald-800/30">+50 EC c/u</span>
+                        </div>
+                        <p class="text-[10px] text-slate-500 mt-1 group-hover:text-slate-400">Desafíos rápidos de cálculo y lógica financiera.</p>
+                    </button>
 
-        <button onclick="abrirMinijuego('conceptos')" class="bg-slate-950 hover:bg-slate-900 border border-slate-700 hover:border-purple-500/50 p-3 rounded-lg text-left transition-all cursor-pointer group">
-            <div class="flex justify-between items-center">
-                <span class="text-xs font-bold text-purple-400 font-mono">🧠 Auditoría de Conceptos</span>
-                <span class="text-[10px] text-emerald-400 font-mono bg-emerald-950 px-1.5 py-0.5 rounded border border-emerald-800/30">+50 EC c/u</span>
+                    <button onclick="abrirMinijuego('conceptos')" class="bg-slate-950 hover:bg-slate-900 border border-slate-700 hover:border-purple-500/50 p-3 rounded-lg text-left transition-all cursor-pointer group">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-bold text-purple-400 font-mono">🧠 Auditoría de Conceptos</span>
+                            <span class="text-[10px] text-emerald-400 font-mono bg-emerald-950 px-1.5 py-0.5 rounded border border-emerald-800/30">+50 EC c/u</span>
+                        </div>
+                        <p class="text-[10px] text-slate-500 mt-1 group-hover:text-slate-400">Repaso interactivo de las definiciones del taller.</p>
+                    </button>
+                </div>
             </div>
-            <p class="text-[10px] text-slate-500 mt-1 group-hover:text-slate-400">Repaso interactivo de las definiciones del taller.</p>
-        </button>
-    </div>
-</div>
 
+            <!-- MARCADOR DE RANGOS INSTITUCIONALES -->
             <div class="grid grid-cols-5 gap-1 text-[9px] font-mono text-center pt-2">
                 <div id="r-ponzi" class="bg-slate-900 border border-slate-800 p-1 rounded text-slate-600">📉 Ponzi</div>
                 <div id="r-alerta" class="bg-slate-900 border border-slate-800 p-1 rounded text-slate-600">⚠️ Alerta</div>
@@ -237,25 +245,28 @@
                 <div id="r-pro" class="bg-slate-900 border border-slate-800 p-1 rounded text-slate-600">💼 Pro</div>
                 <div id="r-leyenda" class="bg-slate-900 border border-slate-800 p-1 rounded text-slate-600">👑 Gardel</div>
             </div>
-
-            <button onclick="cerrarSesionCompleta()" class="text-xs text-red-400 underline font-semibold block mx-auto pt-2 cursor-pointer">Guardar Progreso y Salir</button>
         </div>
 
     </div>
+
+    <!-- VENTANA MODAL: CONTENEDOR FLUIDO DE MINIJUEGOS -->
     <div id="modal-minijuego" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-xl p-5 space-y-4 shadow-2xl relative">
-        <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-            <h3 id="minijuego-titulo" class="text-sm font-mono font-black text-slate-200">🎮 CONFIGURANDO CHANGARRO...</h3>
-            <button onclick="cerrarMinijuego()" class="text-slate-500 hover:text-slate-300 font-bold text-sm cursor-pointer">✕</button>
-        </div>
-        
-        <div id="minijuego-pantalla" class="space-y-4">
+        <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-xl p-5 space-y-4 shadow-2xl relative">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                <h3 id="minijuego-titulo" class="text-sm font-mono font-black text-slate-200">🎮 CONFIGURANDO CHANGARRO...</h3>
+                <button onclick="cerrarMinijuego()" class="text-slate-500 hover:text-slate-300 font-bold text-sm cursor-pointer">✕</button>
             </div>
+            <div id="minijuego-pantalla" class="space-y-4">
+                <!-- Contenido inyectado dinámicamente -->
+            </div>
+        </div>
     </div>
-</div>
+
+    <!-- MOTOR DE LÓGICA Y CONTROL DEL SIMULADOR -->
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwZCcZ50NtDLhSptIUp4rD3Ol6lPMmm0FWHobi2Ry4OzRBxC8T2Je5LHhM7Ddch_8Ub6Q/exec";
 
+        // Objeto único persistente para la sesión del alumno
         let sessionUsuario = {
             nombre: "", apellido: "", username: "",
             liquidez: 10000, patrimonio: 10000, rango: "Piloto de Tormentas",
@@ -265,6 +276,26 @@
         let currentSlide = 1;
         const totalSlides = 3;
         let bucleReloj = null;
+
+        // MOTOR DE CHANGARROS (MINIJUEGOS)
+        let juegoActual = "";
+        let preguntaActualIndice = 0;
+        let preguntasFiltradas = [];
+        let gananciasRonda = 0;
+
+        const BANCO_TRIVIA = [
+            { q: "Si ponés 1.000 EC en Plazo Fijo al 10% de interés simple, ¿cuánta plata tenés en total al vencer?", a: ["1.100 EC", "1.010 EC", "1.000 EC", "2.000 EC"], c: 0 },
+            { q: "La inflación del mercado provoca que tu dinero en mano...", a: ["Gane poder de compra", "Pierda poder de compra", "Se duplique", "Mantenga su valor intacto"], c: 1 },
+            { q: "Si una notebook cuesta 5.000 EC y la inflación proyectada es del 20%, ¿cuál será su precio estimado?", a: ["5.200 EC", "5.500 EC", "6.000 EC", "4.000 EC"], c: 2 },
+            { q: "Si disponés de 3.000 EC en efectivo y activos por 7.000 EC, ¿cuál es tu Patrimonio Neto?", a: ["4.000 EC", "3.000 EC", "7.000 EC", "10.000 EC"], c: 3 }
+        ];
+
+        const BANCO_CONCEPTOS = [
+            { q: "¿Qué define exactamente a la 'Liquidez Disponible'?", a: ["La plata invertida atrapada en plazos fijos", "El dinero en efectivo listo para gastar u operar ya mismo", "El valor total de tus propiedades y computadoras", "Las deudas acumuladas"], c: 1 },
+            { q: "¿Qué es el Patrimonio Neto dentro de tu simulación?", a: ["La liquidez total sumada al valor de tus inversiones físicas", "Únicamente las monedas que tenés en la billetera", "La cantidad de ítems comprados en la tienda", "El interés que te paga el banco por esperar"], c: 0 },
+            { q: "¿Qué significa que una inversión esté bajo un 'Plazo Fijo' de tiempo?", a: ["Que podés retirar el capital en cualquier segundo del día", "Que el dinero queda bloqueado generando intereses hasta su vencimiento", "Que es una inversión de alto riesgo donde podés perder todo", "Que sirve para comprar comida"], c: 1 },
+            { q: "Si comprás una Bicicleta en la tienda, ¿qué impacto tiene en tus variables?", a: ["Baja tu Liquidez pero tu Patrimonio Neto se mantiene estable", "Sube tu Liquidez y baja tu Patrimonio Neto", "Perdés dinero de forma definitiva sin contraprestación", "Te da intereses diarios automáticamente"], c: 0 }
+        ];
 
         function mostrarSubSeccion(idSub) {
             document.getElementById('auth-inicio').classList.add('hidden');
@@ -280,116 +311,6 @@
             document.getElementById(idContenedor).classList.remove('hidden');
         }
 
-        // ========================================================
-//  MOTOR INTERACTIVO DE CHANGARROS ACADÉMICOS (MINIJUEGOS)
-// ========================================================
-let juegoActual = "";
-let preguntaActualIndice = 0;
-let preguntasFiltradas = [];
-let gananciasRonda = 0;
-
-const BANCO_TRIVIA = [
-    { q: "Si ponés 1.000 EC en Plazo Fijo al 10% de interés simple, ¿cuánta plata tenés en total al vencer?", a: ["1.100 EC", "1.010 EC", "1.000 EC", "2.000 EC"], c: 0 },
-    { q: "La inflación del mercado provoca que tu dinero en mano...", a: ["Gane poder de compra", "Pierda poder de compra", "Se duplique", "Mantenga su valor intacto"], c: 1 },
-    { q: "Si una notebook cuesta 5.000 EC y la inflación proyectada es del 20%, ¿cuál será su precio estimado?", a: ["5.200 EC", "5.500 EC", "6.000 EC", "4.000 EC"], c: 2 },
-    { q: "Si disponés de 3.000 EC en efectivo y activos por 7.000 EC, ¿cuál es tu Patrimonio Neto?", a: ["4.000 EC", "3.000 EC", "7.000 EC", "10.000 EC"], c: 3 }
-];
-
-const BANCO_CONCEPTOS = [
-    { q: "¿Qué define exactamente a la 'Liquidez Disponible'?", a: ["La plata invertida atrapada en plazos fijos", "El dinero en efectivo listo para gastar u operar ya mismo", "El valor total de tus propiedades y computadoras", "Las deudas acumuladas"], c: 1 },
-    { q: "¿Qué es el Patrimonio Neto dentro de tu simulación?", a: ["La liquidez total sumada al valor de tus inversiones físicas", "Únicamente las monedas que tenés en la billetera", "La cantidad de ítems comprados en la tienda", "El interés que te paga el banco por esperar"], c: 0 },
-    { q: "¿Qué significa que una inversión esté bajo un 'Plazo Fijo' de tiempo?", a: ["Que podés retirar el capital en cualquier segundo del día", "Que el dinero queda bloqueado generando intereses hasta su vencimiento", "Que es una inversión de alto riesgo donde podés perder todo", "Que sirve para comprar comida"], c: 1 },
-    { q: "Si comprás una Bicicleta en la tienda, ¿qué impacto tiene en tus variables?", a: ["Baja tu Liquidez pero tu Patrimonio Neto se mantiene estable", "Sube tu Liquidez y baja tu Patrimonio Neto", "Perdés dinero de forma definitiva sin contraprestación", "Te da intereses diarios automáticamente"], c: 0 }
-];
-
-function abrirMinijuego(tipo) {
-    juegoActual = tipo;
-    preguntaActualIndice = 0;
-    gananciasRonda = 0;
-    
-    // Mezclamos y seleccionamos 3 preguntas al azar para que no sea monótono
-    const banco = tipo === 'trivia' ? BANCO_TRIVIA : BANCO_CONCEPTOS;
-    preguntasFiltradas = [...banco].sort(() => 0.5 - Math.random()).slice(0, 3);
-    
-    document.getElementById('minijuego-titulo').innerText = tipo === 'trivia' ? "🧮 CHANGARRO: TRIVIA MATEMÁTICA" : "🧠 CHANGARRO: AUDITORÍA DE CONCEPTOS";
-    document.getElementById('modal-minijuego').classList.remove('hidden');
-    
-    presentarPregunta();
-}
-
-function presentarPregunta() {
-    const pantalla = document.getElementById('minijuego-pantalla');
-    if (preguntaActualIndice >= preguntasFiltradas.length) {
-        // Fin de la ronda: Procesamos el bonus final
-        let bonus = 0;
-        if (gananciasRonda === preguntasFiltradas.length * 50) {
-            bonus = 150; // Bonus por ronda perfecta
-        }
-        const totalGanado = gananciasRonda + bonus;
-        
-        // Impacto directo en variables locales del alumno
-        usuarioActual.liquidez += totalGanado;
-        usuarioActual.patrimonio += totalGanado;
-        
-        // Actualizamos los contadores visuales del HUD
-        document.getElementById('hud-liquidez').innerText = `${usuarioActual.liquidez.toLocaleString()} EC`;
-        document.getElementById('hud-patrimonio').innerText = `${usuarioActual.patrimonio.toLocaleString()} EC`;
-        
-        // Sincronizamos en vivo con el Google Sheets de fondo
-        guardarDatosEnNube();
-
-        pantalla.innerHTML = `
-            <div class="text-center space-y-3 py-2">
-                <p class="text-xs text-slate-400">¡Ronda de trabajo finalizada con éxito!</p>
-                <p class="text-2xl font-black text-emerald-400 font-mono">+${totalGanado} EC</p>
-                ${bonus > 0 ? '<p class="text-[10px] text-amber-400 font-mono font-bold">⭐ ¡BONUS DE RANGO PERFECTO INCLUIDO (+150 EC)!</p>' : ''}
-                <p class="text-[11px] text-slate-500 font-mono">Las variables fueron impactadas y sincronizadas en la base central.</p>
-                <button onclick="cerrarMinijuego()" class="w-full bg-slate-800 hover:bg-slate-700 font-bold text-xs py-2.5 rounded-lg cursor-pointer mt-2">Volver al Mercado de Inversión</button>
-            </div>
-        `;
-        return;
-    }
-
-    const p = preguntasFiltradas[preguntaActualIndice];
-    let opcionesHTML = "";
-    p.a.forEach((opt, idx) => {
-        opcionesHTML += `
-            <button onclick="evaluarRespuesta(${idx})" class="w-full text-left bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 rounded-lg p-2.5 text-xs font-mono cursor-pointer transition-all">
-                ${idx + 1}. ${opt}
-            </button>
-        `;
-    });
-
-    pantalla.innerHTML = `
-        <div class="space-y-3">
-            <div class="flex justify-between items-center text-[10px] font-mono text-slate-500">
-                <span>PREGUNTA: ${preguntaActualIndice + 1}/${preguntasFiltradas.length}</span>
-                <span class="text-emerald-500">ACUMULADO: ${gananciasRonda} EC</span>
-            </div>
-            <p class="text-xs font-bold text-slate-300 font-sans leading-relaxed">${p.q}</p>
-            <div class="space-y-2 pt-1">
-                ${opcionesHTML}
-            </div>
-        </div>
-    `;
-}
-
-function evaluarRespuesta(indiceSeleccionado) {
-    const p = preguntasFiltradas[preguntaActualIndice];
-    if (indiceSeleccionado === p.c) {
-        gananciasRonda += 50;
-        alert("¡Correcto! +50 EC acumulados.");
-    } else {
-        alert(`Incorrecto. La respuesta correcta era: ${p.a[p.c]}`);
-    }
-    preguntaActualIndice++;
-    presentarPregunta();
-}
-
-function cerrarMinijuego() {
-    document.getElementById('modal-minijuego').classList.add('hidden');
-}
-        
         function moverSlide(direccion) {
             document.getElementById(`slide-${currentSlide}`).classList.add('hidden');
             currentSlide += direccion;
@@ -403,6 +324,7 @@ function cerrarMinijuego() {
             document.getElementById('btn-slide-sig').innerText = (currentSlide === totalSlides) ? "Comenzar Nivel 1 🚀" : "Siguiente ➡️";
         }
 
+        // CONTROL DE AUTENTICACIÓN
         function procesarLogin() {
             const user = document.getElementById('input-login-user').value.trim();
             const pass = document.getElementById('input-login-pass').value.trim();
@@ -459,17 +381,15 @@ function cerrarMinijuego() {
             inicializarRelojPlazoFijo();
         }
 
-        // CONTROL DEL PLAZO FIJO ASÍNCRONO
+        // SISTEMA DE CONTROL DE PLAZO FIJO
         function constituirPlazoFijo(horas) {
             const monto = Math.floor(Number(document.getElementById('pf-input-monto').value));
             if (isNaN(monto) || monto <= 0) return alert("Ingresá un monto de EduCoins válido.");
             if (monto > sessionUsuario.liquidez) return alert("No tenés suficiente Liquidez Disponible para este bloqueo.");
 
-            // Descontamos del efectivo inmediato (El Patrimonio Neto NO BAJA, muta a crédito)
             sessionUsuario.liquidez -= monto;
             sessionUsuario.pfMonto = monto;
             
-            // Calculamos fecha de vencimiento real basada en milisegundos
             const ahora = new Date();
             const tiempoFuturo = ahora.getTime() + (horas * 60 * 60 * 1000);
             sessionUsuario.pfVence = new Date(tiempoFuturo).toISOString();
@@ -478,7 +398,7 @@ function cerrarMinijuego() {
             document.getElementById('hud-feedback').innerText = `🏦 Plazo Fijo constituido por ${horas === 90 ? '90 horas' : '1 minuto'}. Capital inmovilizado.`;
             
             renderizarHUD();
-            sincronizarServidor();
+            guardarDatosEnNube();
             inicializarRelojPlazoFijo();
         }
 
@@ -508,7 +428,6 @@ function cerrarMinijuego() {
                     btn.innerText = "Cobrar Capital + Intereses 💰";
                     btn.className = "w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs py-2 rounded-lg cursor-pointer transition-all shadow-md";
                 } else {
-                    // Formateo de cuenta regresiva
                     const horas = Math.floor(restante / (1000 * 60 * 60));
                     const minutos = Math.floor((restante % (1000 * 60 * 60)) / (1000 * 60));
                     const segundos = Math.floor((restante % (1000 * 60)) / 1000);
@@ -523,11 +442,9 @@ function cerrarMinijuego() {
         }
 
         function liquidarPlazoFijo() {
-            // Tasa fija simulada: 15% directo de premio
             const premioInteres = Math.floor(sessionUsuario.pfMonto * 0.15);
             const totalDevolucion = sessionUsuario.pfMonto + premioInteres;
 
-            // Retorna a liquidez y el premio aumenta el patrimonio total
             sessionUsuario.liquidez += totalDevolucion;
             sessionUsuario.patrimonio += premioInteres;
             
@@ -538,19 +455,17 @@ function cerrarMinijuego() {
             
             evaluarNuevoRango();
             renderizarHUD();
-            sincronizarServidor();
+            guardarDatosEnNube();
             inicializarRelojPlazoFijo();
         }
 
-        // COMPRA DE BIENES DE LUXE (CONSUMO)
+        // ADQUISICIÓN DE PRODUCTOS (CONSUMO DE TIENDA)
         function comprarProducto(codigo, precio, mensaje) {
-            // Validar si ya se compró
             let lista = sessionUsuario.inventario ? sessionUsuario.inventario.split(",") : [];
             if (lista.includes(codigo)) return alert("Ya adquiriste este bien, está exhibido en tu vitrina.");
 
             if (sessionUsuario.liquidez < precio) return alert("No tenés suficiente Liquidez Disponible. ¡Tu capital puede estar inmovilizado en el banco!");
 
-            // Consumo: Baja la liquidez y BAJA el patrimonio (El gasto de consumo destruye riqueza corporativa)
             sessionUsuario.liquidez -= precio;
             sessionUsuario.patrimonio -= precio;
             
@@ -562,7 +477,7 @@ function cerrarMinijuego() {
             actualizarVitrinaVisual();
             evaluarNuevoRango();
             renderizarHUD();
-            sincronizarServidor();
+            guardarDatosEnNube();
         }
 
         function actualizarVitrinaVisual() {
@@ -579,15 +494,92 @@ function cerrarMinijuego() {
             });
         }
 
-        function operarMesaDirecta(monto, mensaje) {
-            sessionUsuario.liquidez += monto;
-            sessionUsuario.patrimonio += monto;
-            document.getElementById('hud-feedback').innerText = mensaje;
-            evaluarNuevoRango();
-            renderizarHUD();
-            sincronizarServidor();
+        // DINÁMICA DE GANANCIAS DE LOS MINIJUEGOS (CHANGARROS)
+        function abrirMinijuego(tipo) {
+            juegoActual = tipo;
+            preguntaActualIndice = 0;
+            gananciasRonda = 0;
+            
+            const banco = tipo === 'trivia' ? BANCO_TRIVIA : BANCO_CONCEPTOS;
+            preguntasFiltradas = [...banco].sort(() => 0.5 - Math.random()).slice(0, 3);
+            
+            document.getElementById('minijuego-titulo').innerText = tipo === 'trivia' ? "🧮 CHANGARRO: TRIVIA MATEMÁTICA" : "🧠 CHANGARRO: AUDITORÍA DE CONCEPTOS";
+            document.getElementById('modal-minijuego').classList.remove('hidden');
+            
+            presentarPregunta();
         }
 
+        function presentarPregunta() {
+            const pantalla = document.getElementById('minijuego-pantalla');
+            if (preguntaActualIndice >= preguntasFiltradas.length) {
+                let bonus = 0;
+                if (gananciasRonda === preguntasFiltradas.length * 50) {
+                    bonus = 150; 
+                }
+                const totalGanado = gananciasRonda + bonus;
+                
+                sessionUsuario.liquidez += totalGanado;
+                sessionUsuario.patrimonio += totalGanado;
+                
+                document.getElementById('hud-feedback').innerText = `⚡ Completaste una actividad extra. Saldo actualizado.`;
+                
+                evaluarNuevoRango();
+                renderizarHUD();
+                guardarDatosEnNube();
+
+                pantalla.innerHTML = `
+                    <div class="text-center space-y-3 py-2">
+                        <p class="text-xs text-slate-400">¡Ronda de trabajo finalizada con éxito!</p>
+                        <p class="text-2xl font-black text-emerald-400 font-mono">+${totalGanado} EC</p>
+                        ${bonus > 0 ? '<p class="text-[10px] text-amber-400 font-mono font-bold">⭐ ¡BONUS DE RANGO PERFECTO INCLUIDO (+150 EC)!</p>' : ''}
+                        <p class="text-[11px] text-slate-500 font-mono">Las variables fueron impactadas y sincronizadas en la base central.</p>
+                        <button onclick="cerrarMinijuego()" class="w-full bg-slate-800 hover:bg-slate-700 font-bold text-xs py-2.5 rounded-lg cursor-pointer mt-2">Volver al Mercado de Inversión</button>
+                    </div>
+                `;
+                return;
+            }
+
+            const p = preguntasFiltradas[preguntaActualIndice];
+            let opcionesHTML = "";
+            p.a.forEach((opt, idx) => {
+                opcionesHTML += `
+                    <button onclick="evaluarRespuesta(${idx})" class="w-full text-left bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 rounded-lg p-2.5 text-xs font-mono cursor-pointer transition-all">
+                        ${idx + 1}. ${opt}
+                    </button>
+                `;
+            });
+
+            pantalla.innerHTML = `
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center text-[10px] font-mono text-slate-500">
+                        <span>PREGUNTA: ${preguntaActualIndice + 1}/${preguntasFiltradas.length}</span>
+                        <span class="text-emerald-500">ACUMULADO: ${gananciasRonda} EC</span>
+                    </div>
+                    <p class="text-xs font-bold text-slate-300 font-sans leading-relaxed">${p.q}</p>
+                    <div class="space-y-2 pt-1">
+                        ${opcionesHTML}
+                    </div>
+                </div>
+            `;
+        }
+
+        function evaluarRespuesta(indiceSeleccionado) {
+            const p = preguntasFiltradas[preguntaActualIndice];
+            if (indiceSeleccionado === p.c) {
+                gananciasRonda += 50;
+                alert("¡Correcto! +50 EC acumulados.");
+            } else {
+                alert(`Incorrecto. La respuesta correcta era: ${p.a[p.c]}`);
+            }
+            preguntaActualIndice++;
+            presentarPregunta();
+        }
+
+        function cerrarMinijuego() {
+            document.getElementById('modal-minijuego').classList.add('hidden');
+        }
+
+        // EVALUACIÓN DE SISTEMA DE RANGOS
         function evaluarNuevoRango() {
             let pat = sessionUsuario.patrimonio;
             if (pat >= 30000) sessionUsuario.rango = "Rango Gardel";
@@ -617,35 +609,36 @@ function cerrarMinijuego() {
             }
         }
 
-        function sincronizarServidor() {
+        // MOTOR CENTRALIZADO DE AUTOGUARDADO AUTOMÁTICO EN SEGUNDO PLANO
+        function guardarDatosEnNube() {
+            if (!sessionUsuario || !sessionUsuario.username) return;
+
+            const datosAEnviar = {
+                username: sessionUsuario.username,
+                liquidez: sessionUsuario.liquidez,
+                patrimonio: sessionUsuario.patrimonio,
+                rango: sessionUsuario.rango,
+                pfMonto: sessionUsuario.pfMonto,
+                pfVence: sessionUsuario.pfVence,
+                inventario: sessionUsuario.inventario
+            };
+
             fetch(SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    username: sessionUsuario.username,
-                    liquidez: sessionUsuario.liquidez,
-                    patrimonio: sessionUsuario.patrimonio,
-                    rango: sessionUsuario.rango,
-                    pfMonto: sessionUsuario.pfMonto,
-                    pfVence: sessionUsuario.pfVence,
-                    inventario: sessionUsuario.inventario
-                })
-            }).catch(e => console.log("Retraso en sincronización remota"));
+                body: JSON.stringify(datosAEnviar)
+            })
+            .then(() => {
+                console.log("🔄 Autoguardado exitoso en la nube central.");
+            })
+            .catch(err => {
+                console.error("❌ Fallo crítico en el envío de persistencia:", err);
+            });
         }
 
-        function cerrarSesionCompleta() {
-            if(bucleReloj) clearInterval(bucleReloj);
-            document.getElementById('input-login-user').value = "";
-            document.getElementById('input-login-pass').value = "";
-            document.getElementById('input-reg-nombre').value = "";
-            document.getElementById('input-reg-apellido').value = "";
-            document.getElementById('input-reg-pass').value = "";
-            mostrarSubSeccion('auth-inicio');
-            cambiarFaseGlobal('contenedor-autenticacion');
-        }
-      function inicializarRelojGlobal() {
-            // Buscamos la hora oficial que el Profe configuró en la nube
+        // RELOJ GLOBAL SINCRO CON FECHA FIJA EN BACKEND (18/06/2026 12:30 HS)
+        function inicializarRelojGlobal() {
             fetch(`${SCRIPT_URL}?action=get_time`)
                 .then(res => res.json())
                 .then(data => {
@@ -676,6 +669,7 @@ function cerrarMinijuego() {
                     document.getElementById('reloj-global-500h').innerText = "ERROR DE SINCRONIZACIÓN";
                 });
         }
+
         window.addEventListener('DOMContentLoaded', inicializarRelojGlobal);
     </script>
 </body>
