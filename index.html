@@ -261,9 +261,121 @@
             </div>
         </div>
     </div>
+<div id="contenedor-asistente-flotante" class="fixed bottom-6 right-6 z-50 font-sans">
+    <button id="btn-toggle-asistente" class="w-14 h-14 bg-emerald-600 hover:bg-emerald-500 text-white rounded-full shadow-2xl flex items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-105 active:scale-95">
+        <span id="icono-asistente" class="text-2xl">🤖</span>
+    </button>
 
+    <div id="ventana-chat-asistente" class="hidden absolute bottom-18 right-0 w-80 sm:w-96 h-[450px] bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden transition-all duration-300">
+        <div class="bg-slate-950 p-4 border-b border-slate-700 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse"></div>
+                <div>
+                    <h4 class="text-sm font-bold text-slate-100">sebastIAn <span class="text-xs font-normal text-emerald-400">v2.0</span></h4>
+                    <p class="text-[10px] text-slate-400">Tutor de Laboratorio Financiero</p>
+                </div>
+            </div>
+            <button id="btn-cerrar-asistente" class="text-slate-400 hover:text-slate-200 text-xs cursor-pointer">✕</button>
+        </div>
+
+        <div id="historial-mensajes-asistente" class="flex-1 p-4 overflow-y-auto space-y-3 text-sm scrollbar-thin">
+            <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/50 text-slate-300">
+                ¡Hola! Soy tu asistente de laboratorio. Si tenés dudas sobre los plazos fijos, las oportunidades de inversión o la auditoría de tu patrimonio, escribime acá. No te voy a dar la respuesta directa, ¡pero te voy a ayudar a pensar la jugada!
+            </div>
+        </div>
+
+        <div class="p-3 bg-slate-950 border-t border-slate-700 flex gap-2">
+            <input type="text" id="input-mensaje-asistente" placeholder="Escribí tu consulta acá..." class="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+            <button id="btn-enviar-asistente" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-2 rounded-xl text-xs font-bold transition-colors cursor-pointer">
+                Enviar
+            </button>
+        </div>
+    </div>
+</div>
     <!-- MOTOR DE LÓGICA Y CONTROL DEL SIMULADOR -->
     <script>
+        // =======================================================
+// INTERFACES Y CONTROL DEL ASISTENTE VIRTUAL
+// =======================================================
+const btnToggle = document.getElementById('btn-toggle-asistente');
+const btnCerrar = document.getElementById('btn-cerrar-asistente');
+const ventanaChat = document.getElementById('ventana-chat-asistente');
+const btnEnviar = document.getElementById('btn-enviar-asistente');
+const inputMensaje = document.getElementById('input-mensaje-asistente');
+const historialMensajes = document.getElementById('historial-mensajes-asistente');
+
+// Manejo de apertura y cierre de la ventana flotante
+btnToggle.addEventListener('click', () => {
+    ventanaChat.classList.toggle('hidden');
+    inputMensaje.focus();
+});
+btnCerrar.addEventListener('click', () => ventanaChat.classList.add('hidden'));
+
+// Captura de eventos para enviar mensajes
+btnEnviar.addEventListener('click', procesarMensajeAlumno);
+inputMensaje.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') procesarMensajeAlumno();
+});
+
+function appendMensajeChat(rol, texto) {
+    const div = document.createElement('div');
+    if (rol === 'user') {
+        div.className = "bg-emerald-950/40 border border-emerald-800/50 p-3 rounded-xl text-slate-200 ml-8 text-right";
+    } else {
+        div.className = "bg-slate-900 border border-slate-700 p-3 rounded-xl text-slate-300 mr-8 text-left";
+    }
+    div.innerText = texto;
+    historialMensajes.appendChild(div);
+    historialMensajes.scrollTop = historialMensajes.scrollHeight;
+}
+
+function procesarMensajeAlumno() {
+    const textoQuery = inputMensaje.value.trim();
+    if (!textoQuery) return;
+
+    // Dibujamos la consulta del alumno en pantalla instantáneamente
+    appendMensajeChat('user', textoQuery);
+    inputMensaje.value = '';
+
+    // Colocamos un indicador visual de carga ("Pensando...")
+    const divPensando = document.createElement('div');
+    divPensando.id = "asistente-typing";
+    divPensando.className = "text-xs text-slate-500 italic animate-pulse";
+    divPensando.innerText = "sebastIAn está analizando tu caso...";
+    historialMensajes.appendChild(divPensando);
+    historialMensajes.scrollTop = historialMensajes.scrollHeight;
+
+    // CAPTURA DE VARIABLES DEL CONTEXTO ACTUAL DEL JUEGO DEL ALUMNO
+    // (Asumimos que tenés un objeto local o variables globales con el estado financiero del alumno)
+    const estadoFinancieroActual = {
+        liquidez: typeof liquidez !== 'undefined' ? liquidez : 0,
+        patrimonio: typeof patrimonio !== 'undefined' ? patrimonio : 0,
+        pfMonto: typeof pfMonto !== 'undefined' ? pfMonto : 0,
+        rango: typeof rango !== 'undefined' ? rango : "Iniciando"
+    };
+
+    // Petición hacia tu Google Apps Script de siempre pasándole la acción del chatbot
+    // Reemplazar URL_DE_TU_WEB_APP con la dirección de tu ejecución de Apps Script
+    const urlAppsScript = "https://script.google.com/macros/s/AKfycbyS5yPr1FQRI9WOTJvEUo_LEp_C273HydytWFhAgvuugSlxdNTv7eYKuFdxDo3iGfyi/exec"; 
+
+    fetch(`${urlAppsScript}?action=chat_tutor&query=${encodeURIComponent(textoQuery)}&liquidez=${estadoFinancieroActual.liquidez}&patrimonio=${estadoFinancieroActual.patrimonio}&pfMonto=${estadoFinancieroActual.pfMonto}&rango=${encodeURIComponent(estadoFinancieroActual.rango)}`)
+        .then(res => res.json())
+        .then(data => {
+            const elTyping = document.getElementById('asistente-typing');
+            if (elTyping) elTyping.remove();
+
+            if (data.status === "success") {
+                appendMensajeChat('assistant', data.respuesta);
+            } else {
+                appendMensajeChat('assistant', "Hubo un problema de conexión con la base de datos de simulación.");
+            }
+        })
+        .catch(() => {
+            const elTyping = document.getElementById('asistente-typing');
+            if (elTyping) elTyping.remove();
+            appendMensajeChat('assistant', "Error en los servidores del laboratorio escolar.");
+        });
+}
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwZCcZ50NtDLhSptIUp4rD3Ol6lPMmm0FWHobi2Ry4OzRBxC8T2Je5LHhM7Ddch_8Ub6Q/exec";
 
         // Objeto único persistente para la sesión del alumno
